@@ -1,0 +1,17 @@
+Opcodes are given in hexadecimal. In opcodes "x" represents a variable part of the opcode. The way it varies is described in each case, giving its value in binary.
+
+Opcodes  |  Instructions  |  Description
+
+0000        nop              Does nothing
+          
+001x        mov regd regs    Copies value of register regs to register regd. x = 00, 01, 10 or 11 + 00, 01, 10, 11 depending on which registers are used. For example:
+                             mov bx dx -> x = 0111, because bx would be 01 and dx would be 11
+
+002x        mov reg num      Copies value num to register reg. x = 00, 01, 10 or 11 + 00 depending on which register is used. For example: mov bx 32 -> x = 0100,
+                             because bx would be 01
+
+003x        mov reg add
+
+004x        mov add reg
+
+005x        mov add num
