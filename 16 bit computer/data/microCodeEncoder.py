@@ -47,8 +47,25 @@ opcode=""
 instructions={}
 for line in lines:
     if len(line)>4 and line[0] in hexadec and line[1] in hexadec and line[2] in hexadec and line[3] in hexadec:
-        opcode=line[:4]
+        opcode=int(line[:4],16)
         instructions[opcode]=[]
     else:
         instructions[opcode].append(line.split(", "))
-print(instructions)
+encodedList=["v2.0 raw"]
+for i in range(2**16):
+    if i not in instructions:
+        encodedList.append(" ".join(["0"]*16))
+    else:
+        line=["0"]
+        for mCode in instructions[i]:
+            mCodeEncoded=0
+            for mInstruction in mCode:
+                mCodeEncoded+=microInstructions[mInstruction]
+            line.append(hex(mCodeEncoded)[2:])
+        while len(line)<16:
+            line.append("0")
+        encodedList.append(" ".join(line))
+file=open("Micro Instructions","w")
+file.write("\n".join(encodedList))
+file.close()
+print("done")
