@@ -1,4 +1,4 @@
-Opcodes are given in hexadecimal. In opcodes "x" represents a variable part of the opcode. The way it varies is described in each case.
+All numbers are given in hexadecimal. In opcodes "x" represents a variable part of the opcode. The way it varies is described in each case.
 
 Opcodes  |  Instructions  |  Operands  |  Description
 
@@ -84,6 +84,7 @@ Micro Code:
     reset counter
 
 0100 mov ax ax:
+    ax out, ax in
     reset counter
 
 0101 mov ax bx:
@@ -99,7 +100,19 @@ Micro Code:
     reset counter
 
 0104 mov ax bp:
-    dx out, ax in
+    bp out, ax in
+    reset counter
+
+0105 mov ax sp:
+    sp out, ax in
+    reset counter
+
+0106 mov ax si:
+    si out, ax in
+    reset counter
+
+0107 mov ax di:
+    di out, ax in
     reset counter
 
 0110 mov bx ax:
@@ -107,6 +120,7 @@ Micro Code:
     reset counter
 
 0111 mov bx bx:
+    bx out, bx in
     reset counter
 
 0112 mov bx cx:
@@ -115,6 +129,22 @@ Micro Code:
 
 0113 mov bx dx:
     dx out, bx in
+    reset counter
+
+0114 mov bx bp:
+    bp out, bx in
+    reset counter
+
+0115 mov bx sp:
+    sp out, bx in
+    reset counter
+
+0116 mov bx si:
+    si out, bx in
+    reset counter
+
+0117 mov bx di:
+    di out, bx in
     reset counter
 
 0120 mov cx ax:
@@ -126,10 +156,27 @@ Micro Code:
     reset counter
 
 0122 mov cx cx:
+    cx out, cx in
     reset counter
 
 0123 mov cx dx:
     dx out, cx in
+    reset counter
+
+0124 mov cx bp:
+    bp out, cx in
+    reset counter
+
+0125 mov cx sp:
+    sp out, cx in
+    reset counter
+
+0126 mov cx si:
+    si out, cx in
+    reset counter
+
+0127 mov cx di:
+    di out, cx in
     reset counter
 
 0130 mov dx ax:
@@ -145,6 +192,151 @@ Micro Code:
     reset counter
 
 0133 mov dx dx:
+    dx out, dx in
+    reset counter
+
+0134 mov dx bp:
+    bp out, dx in
+    reset counter
+
+0135 mov dx sp:
+    sp out, dx in
+    reset counter
+
+0136 mov dx si:
+    si out, dx in
+    reset counter
+
+0137 mov dx di:
+    di out, dx in
+    reset counter
+
+0140 mov bp ax:
+    ax out, bp in
+    reset counter
+
+0141 mov bp bx:
+    bx out, bp in
+    reset counter
+
+0142 mov bp cx:
+    cx out, bp in
+    reset counter
+
+0143 mov bp dx:
+    dx out, bp in
+    reset counter
+
+0144 mov bp bp:
+    bp out, bp in
+    reset counter
+
+0145 mov bp sp:
+    sp out, bp in
+    reset counter
+
+0146 mov bp si:
+    si out, bp in
+    reset counter
+
+0147 mov bp di:
+    di out, bp in
+    reset counter
+
+0150 mov sp ax:
+    ax out, sp in
+    reset counter
+
+0151 mov sp bx:
+    bx out, sp in
+    reset counter
+
+0152 mov sp cx:
+    cx out, sp in
+    reset counter
+
+0153 mov sp dx:
+    dx out, sp in
+    reset counter
+
+0154 mov sp bp:
+    bp out, sp in
+    reset counter
+
+0155 mov sp sp:
+    sp out, sp in
+    reset counter
+
+0156 mov sp si:
+    si out, sp in
+    reset counter
+
+0157 mov sp di:
+    di out, sp in
+    reset counter
+
+0160 mov si ax:
+    ax out, si in
+    reset counter
+
+0161 mov si bx:
+    bx out, si in
+    reset counter
+
+0162 mov si cx:
+    cx out, si in
+    reset counter
+
+0163 mov si dx:
+    dx out, si in
+    reset counter
+
+0164 mov si bp:
+    bp out, si in
+    reset counter
+
+0165 mov si sp:
+    sp out, si in
+    reset counter
+
+0166 mov si si:
+    si out, si in
+    reset counter
+
+0167 mov si di:
+    di out, si in
+    reset counter
+
+0170 mov di ax:
+    ax out, di in
+    reset counter
+
+0171 mov di bx:
+    bx out, di in
+    reset counter
+
+0172 mov di cx:
+    cx out, di in
+    reset counter
+
+0173 mov di dx:
+    dx out, di in
+    reset counter
+
+0174 mov di bp:
+    bp out, di in
+    reset counter
+
+0175 mov di sp:
+    sp out, di in
+    reset counter
+
+0176 mov di si:
+    si out, di in
+    reset counter
+
+0177 mov di di:
+    di out, di in
     reset counter
 
 0020 mov ax num:
@@ -161,6 +353,22 @@ Micro Code:
 
 0023 mov dx num:
     ram out, dx in, pc inc
+    reset counter
+
+0024 mov bp num:
+    ram out, bp in, pc inc
+    reset counter
+
+0025 mov sp num:
+    ram out, sp in, pc inc
+    reset counter
+
+0026 mov si num:
+    ram out, si in, pc inc
+    reset counter
+
+0027 mov di num:
+    ram out, di in, pc inc
     reset counter
 
 0030 mov ax add:
@@ -183,6 +391,26 @@ Micro Code:
     ram out, dx in
     reset counter
 
+0034 mov bp add:
+    ram out, mar in, pc inc
+    ram out, bp in
+    reset counter
+
+0035 mov sp add:
+    ram out, mar in, pc inc
+    ram out, sp in
+    reset counter
+
+0036 mov si add:
+    ram out, mar in, pc inc
+    ram out, si in
+    reset counter
+
+0037 mov di add:
+    ram out, mar in, pc inc
+    ram out, di in
+    reset counter
+
 0040 mov add ax:
     ram out, mar in, pc inc
     ax out, ram in
@@ -202,3 +430,348 @@ Micro Code:
     ram out, mar in, pc inc
     dx out, ram in
     reset counter
+
+0044 mov add bp:
+    ram out, mar in, pc inc
+    bp out, ram in
+    reset counter
+
+0045 mov add sp:
+    ram out, mar in, pc inc
+    sp out, ram in
+    reset counter
+
+0046 mov add si:
+    ram out, mar in, pc inc
+    si out, ram in
+    reset counter
+
+0047 mov add di:
+    ram out, mar in, pc inc
+    di out, ram in
+    reset counter
+
+0200 mov ax [ax]:
+    ax out, mar in
+    ram out, ax in
+    reset counter
+
+0201 mov ax [bx]:
+    bx out, mar in
+    ram out, ax in
+    reset counter
+
+0202 mov ax [cx]:
+    cx out, mar in
+    ram out, ax in
+    reset counter
+
+0203 mov ax [dx]:
+    dx out, mar in
+    ram out, ax in
+    reset counter
+
+0204 mov ax [bp]:
+    bp out, mar in
+    ram out, ax in
+    reset counter
+
+0205 mov ax [sp]:
+    sp out, mar in
+    ram out, ax in
+    reset counter
+
+0206 mov ax [si]:
+    si out, mar in
+    ram out, ax in
+    reset counter
+
+0207 mov ax [di]:
+    di out, mar in
+    ram out, ax in
+    reset counter
+
+0210 mov bx [ax]:
+    ax out, mar in
+    ram out, bx in
+    reset counter
+
+0211 mov bx [bx]:
+    bx out, mar in
+    ram out, bx in
+    reset counter
+
+0212 mov bx [cx]:
+    cx out, mar in
+    ram out, bx in
+    reset counter
+
+0213 mov bx [dx]:
+    dx out, mar in
+    ram out, bx in
+    reset counter
+
+0214 mov bx [bp]:
+    bp out, mar in
+    ram out, bx in
+    reset counter
+
+0215 mov bx [sp]:
+    sp out, mar in
+    ram out, bx in
+    reset counter
+
+0216 mov bx [si]:
+    si out, mar in
+    ram out, bx in
+    reset counter
+
+0217 mov bx [di]:
+    di out, mar in
+    ram out, bx in
+    reset counter
+
+0220 mov cx [ax]:
+    ax out, mar in
+    ram out, cx in
+    reset counter
+
+0221 mov cx [bx]:
+    bx out, mar in
+    ram out, cx in
+    reset counter
+
+0222 mov cx [cx]:
+    cx out, mar in
+    ram out, cx in
+    reset counter
+
+0223 mov cx [dx]:
+    dx out, mar in
+    ram out, cx in
+    reset counter
+
+0224 mov cx [bp]:
+    bp out, mar in
+    ram out, cx in
+    reset counter
+
+0225 mov cx [sp]:
+    sp out, mar in
+    ram out, cx in
+    reset counter
+
+0226 mov cx [si]:
+    si out, mar in
+    ram out, cx in
+    reset counter
+
+0227 mov cx [di]:
+    di out, mar in
+    ram out, cx in
+    reset counter
+
+0230 mov dx [ax]:
+    ax out, mar in
+    ram out, dx in
+    reset counter
+
+0231 mov dx [bx]:
+    bx out, mar in
+    ram out, dx in
+    reset counter
+
+0232 mov dx [cx]:
+    cx out, mar in
+    ram out, dx in
+    reset counter
+
+0233 mov dx [dx]:
+    dx out, mar in
+    ram out, dx in
+    reset counter
+
+0234 mov dx [bp]:
+    bp out, mar in
+    ram out, dx in
+    reset counter
+
+0235 mov dx [sp]:
+    sp out, mar in
+    ram out, dx in
+    reset counter
+
+0236 mov dx [si]:
+    si out, mar in
+    ram out, dx in
+    reset counter
+
+0237 mov dx [di]:
+    di out, mar in
+    ram out, dx in
+    reset counter
+
+0240 mov bp [ax]:
+    ax out, mar in
+    ram out, bp in
+    reset counter
+
+0241 mov bp [bx]:
+    bx out, mar in
+    ram out, bp in
+    reset counter
+
+0242 mov bp [cx]:
+    cx out, mar in
+    ram out, bp in
+    reset counter
+
+0243 mov bp [dx]:
+    dx out, mar in
+    ram out, bp in
+    reset counter
+
+0244 mov bp [bp]:
+    bp out, mar in
+    ram out, bp in
+    reset counter
+
+0245 mov bp [sp]:
+    sp out, mar in
+    ram out, bp in
+    reset counter
+
+0246 mov bp [si]:
+    si out, mar in
+    ram out, bp in
+    reset counter
+
+0247 mov bp [di]:
+    di out, mar in
+    ram out, bp in
+    reset counter
+
+0250 mov sp [ax]:
+    ax out, mar in
+    ram out, sp in
+    reset counter
+
+0251 mov sp [bx]:
+    bx out, mar in
+    ram out, sp in
+    reset counter
+
+0252 mov sp [cx]:
+    cx out, mar in
+    ram out, sp in
+    reset counter
+
+0253 mov sp [dx]:
+    dx out, mar in
+    ram out, sp in
+    reset counter
+
+0254 mov sp [bp]:
+    bp out, mar in
+    ram out, sp in
+    reset counter
+
+0255 mov sp [sp]:
+    sp out, mar in
+    ram out, sp in
+    reset counter
+
+0256 mov sp [si]:
+    si out, mar in
+    ram out, sp in
+    reset counter
+
+0257 mov sp [di]:
+    di out, mar in
+    ram out, sp in
+    reset counter
+
+0260 mov si [ax]:
+    ax out, mar in
+    ram out, si in
+    reset counter
+
+0261 mov si [bx]:
+    bx out, mar in
+    ram out, si in
+    reset counter
+
+0262 mov si [cx]:
+    cx out, mar in
+    ram out, si in
+    reset counter
+
+0263 mov si [dx]:
+    dx out, mar in
+    ram out, si in
+    reset counter
+
+0264 mov si [bp]:
+    bp out, mar in
+    ram out, si in
+    reset counter
+
+0265 mov si [sp]:
+    sp out, mar in
+    ram out, si in
+    reset counter
+
+0266 mov si [si]:
+    si out, mar in
+    ram out, si in
+    reset counter
+
+0267 mov si [di]:
+    di out, mar in
+    ram out, si in
+    reset counter
+
+0270 mov di [ax]:
+    ax out, mar in
+    ram out, di in
+    reset counter
+
+0271 mov di [bx]:
+    bx out, mar in
+    ram out, di in
+    reset counter
+
+0272 mov di [cx]:
+    cx out, mar in
+    ram out, di in
+    reset counter
+
+0273 mov di [dx]:
+    dx out, mar in
+    ram out, di in
+    reset counter
+
+0274 mov di [bp]:
+    bp out, mar in
+    ram out, di in
+    reset counter
+
+0275 mov di [sp]:
+    sp out, mar in
+    ram out, di in
+    reset counter
+
+0276 mov di [si]:
+    si out, mar in
+    ram out, di in
+    reset counter
+
+0277 mov di [di]:
+    di out, mar in
+    ram out, di in
+    reset counter
+
+
+
+
+
