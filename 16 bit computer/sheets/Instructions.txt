@@ -1,88 +1,204 @@
-Opcodes are given in hexadecimal. In opcodes "x" represents a variable part of the opcode. The way it varies is described in each case, giving its value in binary.
+Opcodes are given in hexadecimal. In opcodes "x" represents a variable part of the opcode. The way it varies is described in each case.
 
 Opcodes  |  Instructions  |  Operands  |  Description
 
 0000        nop              None         Does nothing
           
-001x        mov regd regs    None         Copies value of register regs to register regd. x = 00, 01, 10 or 11 + 00, 01, 10, 11 depending on which registers are used.
-                                          For example: mov bx dx -> x = 0111, because bx would be 01 and dx would be 11
+01xx        mov regd regs    None         Copies value of register regs to register regd. xx = regd number + regs number. this instruction 
+                                          For example: mov bx dx -> xx = 13, because bx would be 1 and dx would be 3
 
-002x        mov reg num      num          Copies value num to register reg. x = 00, 01, 10 or 11 + 00 depending on which register is used.
-                                          For example: mov bx 32 -> x = 0100, because bx would be 01
+002x        mov reg num      num          Copies value num to register reg. x = register number.
+                                          For example: mov bx 32 -> x = 1
 
-003x        mov reg add      add          Copies value at address add to register reg. x = 00, 01, 10 or 11 + 00 depending on which register is used.
-                                          For example: mov bx [32] -> x = 0100, because bx would be 01
+003x        mov reg add      add          Copies value at address add to register reg. x = register number.
+                                          For example: mov si [32] -> x = 6
 
-004x        mov add reg      add          Copies value of register reg to address add. x = 00, 01, 10 or 11 + 00 depending on which register is used.
-                                          For example: mov [32] bx -> x = 0100, because bx would be 01
+004x        mov add reg      add          Copies value of register reg to address add. x = register number.
+                                          For example: mov [32] bx -> x = 1
 
-0050        mov add num      add, num     Copies value num to address add
+02xx        mov reg regadd   None         Copies value at address in register regadd to register reg. xx = reg number + regadd number.
+                                          For example: mov si [ax] -> xx = 60
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+03xx        mov regadd reg   None         Copies value of register reg to address in register regadd. xx = regadd number + reg number.
+                                          For example: mov [bp] bx -> xx = 41
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Register numbers:
+
+ax  0
+bx  1
+cx  2
+dx  3
+bp  4
+sp  5
+si  6
+di  7
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Micro Instructions:
+
+00000001 pc out
+00000002 mar in
+00000004 ram out
+00000008 i in
+00000010 pc inc
+00000020 pc set
+00000040 ram in
+00000080 reset counter
+00000100 a in
+00000200 b in
+00000400 alu out
+00000800 ax in
+00001000 bx in
+00002000 cx in
+00004000 dx in
+00008000 ax out
+00010000 bx out
+00020000 cx out
+00040000 dx out
+00080000 halt
+00100000 bp out
+00200000 bp in
+00400000 sp out
+00800000 sp in
+01000000 si out
+02000000 si in
+04000000 di out
+08000000 di in
+10000000 ja
+20000000 jna
+30000000 je
+40000000 jne
+50000000 jb
+60000000 jnb
+70000000 jg
+80000000 jng
+90000000 jl
+a0000000 jnl
+
+Micro Code:
 
 0000 nop:
     reset counter
 
-0010 mov ax ax:
+0100 mov ax ax:
     reset counter
 
-0011 mov ax bx:
+0101 mov ax bx:
     bx out, ax in
     reset counter
 
-0012 mov ax cx:
+0102 mov ax cx:
     cx out, ax in
     reset counter
 
-0013 mov ax dx:
+0103 mov ax dx:
     dx out, ax in
     reset counter
 
-0014 mov bx ax:
+0104 mov ax bp:
+    dx out, ax in
+    reset counter
+
+0110 mov bx ax:
     ax out, bx in
     reset counter
 
-0015 mov bx bx:
+0111 mov bx bx:
     reset counter
 
-0016 mov bx cx:
+0112 mov bx cx:
     cx out, bx in
     reset counter
 
-0017 mov bx dx:
+0113 mov bx dx:
     dx out, bx in
     reset counter
 
-0018 mov cx ax:
+0120 mov cx ax:
     ax out, cx in
     reset counter
 
-0019 mov cx bx:
+0121 mov cx bx:
     bx out, cx in
     reset counter
 
-001a mov cx cx:
+0122 mov cx cx:
     reset counter
 
-001b mov cx dx:
+0123 mov cx dx:
     dx out, cx in
     reset counter
 
-001c mov dx ax:
+0130 mov dx ax:
     ax out, dx in
     reset counter
 
-001d mov dx bx:
+0131 mov dx bx:
     bx out, dx in
     reset counter
 
-001e mov dx cx:
+0132 mov dx cx:
     cx out, dx in
     reset counter
 
-001f mov dx dx:
+0133 mov dx dx:
     reset counter
 
+0020 mov ax num:
+    ram out, ax in, pc inc
+    reset counter
 
+0021 mov bx num:
+    ram out, bx in, pc inc
+    reset counter
+
+0022 mov cx num:
+    ram out, cx in, pc inc
+    reset counter
+
+0023 mov dx num:
+    ram out, dx in, pc inc
+    reset counter
+
+0030 mov ax add:
+    ram out, mar in, pc inc
+    ram out, ax in
+    reset counter
+
+0031 mov bx add:
+    ram out, mar in, pc inc
+    ram out, bx in
+    reset counter
+
+0032 mov cx add:
+    ram out, mar in, pc inc
+    ram out, cx in
+    reset counter
+
+0033 mov dx add:
+    ram out, mar in, pc inc
+    ram out, dx in
+    reset counter
+
+0040 mov add ax:
+    ram out, mar in, pc inc
+    ax out, ram in
+    reset counter
+
+0041 mov add bx:
+    ram out, mar in, pc inc
+    bx out, ram in
+    reset counter
+
+0042 mov add cx:
+    ram out, mar in, pc inc
+    cx out, ram in
+    reset counter
+
+0043 mov add dx:
+    ram out, mar in, pc inc
+    dx out, ram in
+    reset counter
