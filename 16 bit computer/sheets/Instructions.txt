@@ -17,3 +17,72 @@ Opcodes  |  Instructions  |  Operands  |  Description
                                           For example: mov [32] bx -> x = 0100, because bx would be 01
 
 0050        mov add num      add, num     Copies value num to address add
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Micro Instructions:
+
+0000 nop:
+    reset counter
+
+0010 mov ax ax:
+    reset counter
+
+0011 mov ax bx:
+    bx out, ax in
+    reset counter
+
+0012 mov ax cx:
+    cx out, ax in
+    reset counter
+
+0013 mov ax dx:
+    dx out, ax in
+    reset counter
+
+0014 mov bx ax:
+    ax out, bx in
+    reset counter
+
+0015 mov bx bx:
+    reset counter
+
+0016 mov bx cx:
+    cx out, bx in
+    reset counter
+
+0017 mov bx dx:
+    dx out, bx in
+    reset counter
+
+0018 mov cx ax:
+    ax out, cx in
+    reset counter
+
+0019 mov cx bx:
+    bx out, cx in
+    reset counter
+
+001a mov cx cx:
+    reset counter
+
+001b mov cx dx:
+    dx out, cx in
+    reset counter
+
+001c mov dx ax:
+    ax out, dx in
+    reset counter
+
+001d mov dx bx:
+    bx out, dx in
+    reset counter
+
+001e mov dx cx:
+    cx out, dx in
+    reset counter
+
+001f mov dx dx:
+    reset counter
+
+
