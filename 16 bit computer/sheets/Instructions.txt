@@ -68,6 +68,7 @@ sp  5
 
 Micro Instructions:
 
+00000000 nop
 00000001 pc out
 00000002 mar in
 00000004 ram out
@@ -290,85 +291,115 @@ ffff halt:
     reset counter
 
 0010 mov ax num:
+    pc out, mar in
     ram out, ax in, pc inc
     reset counter
 
 0011 mov bx num:
+    pc out, mar in
     ram out, bx in, pc inc
     reset counter
 
 0012 mov cx num:
+    pc out, mar in
     ram out, cx in, pc inc
     reset counter
 
 0013 mov dx num:
+    pc out, mar in
     ram out, dx in, pc inc
     reset counter
 
 0014 mov bp num:
+    pc out, mar in
     ram out, bp in, pc inc
     reset counter
 
 0015 mov sp num:
+    pc out, mar in
     ram out, sp in, pc inc
     reset counter
 
 0020 mov ax add:
+    pc out, mar in
+    nop
     ram out, mar in, pc inc
     ram out, ax in
     reset counter
 
 0021 mov bx add:
+    pc out, mar in
+    nop
     ram out, mar in, pc inc
     ram out, bx in
     reset counter
 
 0022 mov cx add:
+    pc out, mar in
+    nop
     ram out, mar in, pc inc
     ram out, cx in
     reset counter
 
 0023 mov dx add:
+    pc out, mar in
+    nop
     ram out, mar in, pc inc
     ram out, dx in
     reset counter
 
 0024 mov bp add:
+    pc out, mar in
+    nop
     ram out, mar in, pc inc
     ram out, bp in
     reset counter
 
 0025 mov sp add:
+    pc out, mar in
+    nop
     ram out, mar in, pc inc
     ram out, sp in
     reset counter
 
 0030 mov add ax:
+    pc out, mar in
+    nop
     ram out, mar in, pc inc
     ax out, ram in
     reset counter
 
 0031 mov add bx:
+    pc out, mar in
+    nop
     ram out, mar in, pc inc
     bx out, ram in
     reset counter
 
 0032 mov add cx:
+    pc out, mar in
+    nop
     ram out, mar in, pc inc
     cx out, ram in
     reset counter
 
 0033 mov add dx:
+    pc out, mar in
+    nop
     ram out, mar in, pc inc
     dx out, ram in
     reset counter
 
 0034 mov add bp:
+    pc out, mar in
+    nop
     ram out, mar in, pc inc
     bp out, ram in
     reset counter
 
 0035 mov add sp:
+    pc out, mar in
+    nop
     ram out, mar in, pc inc
     sp out, ram in
     reset counter
@@ -950,42 +981,49 @@ ffff halt:
     reset counter
 
 0040 add ax num:
+    pc out, mar in
     ax out, a in
     ram out, b in, pc inc
     alu op add, alu out, ax in
     reset counter
 
 0041 add bx num:
+    pc out, mar in
     bx out, a in
     ram out, b in, pc inc
     alu op add, alu out, bx in
     reset counter
 
 0042 add cx num:
+    pc out, mar in
     cx out, a in
     ram out, b in, pc inc
     alu op add, alu out, cx in
     reset counter
 
 0043 add dx num:
+    pc out, mar in
     dx out, a in
     ram out, b in, pc inc
     alu op add, alu out, dx in
     reset counter
 
 0044 add bp num:
+    pc out, mar in
     bp out, a in
     ram out, b in, pc inc
     alu op add, alu out, bp in
     reset counter
 
 0045 add sp num:
+    pc out, mar in
     sp out, a in
     ram out, b in, pc inc
     alu op add, alu out, sp in
     reset counter
 
 0050 add ax add:
+    pc out, mar in
     ax out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -993,6 +1031,7 @@ ffff halt:
     reset counter
 
 0051 add bx add:
+    pc out, mar in
     bx out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -1000,6 +1039,7 @@ ffff halt:
     reset counter
 
 0052 add cx add:
+    pc out, mar in
     cx out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -1007,6 +1047,7 @@ ffff halt:
     reset counter
 
 0053 add dx add:
+    pc out, mar in
     dx out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -1014,6 +1055,7 @@ ffff halt:
     reset counter
 
 0054 add bp add:
+    pc out, mar in
     bp out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -1021,6 +1063,7 @@ ffff halt:
     reset counter
 
 0055 add sp add:
+    pc out, mar in
     sp out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -1028,6 +1071,7 @@ ffff halt:
     reset counter
 
 0060 add add ax:
+    pc out, mar in
     ax out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -1035,6 +1079,7 @@ ffff halt:
     reset counter
 
 0061 add add bx:
+    pc out, mar in
     bx out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -1042,6 +1087,7 @@ ffff halt:
     reset counter
 
 0062 add add cx:
+    pc out, mar in
     cx out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -1049,6 +1095,7 @@ ffff halt:
     reset counter
 
 0063 add add dx:
+    pc out, mar in
     dx out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -1056,6 +1103,7 @@ ffff halt:
     reset counter
 
 0064 add add bp:
+    pc out, mar in
     bp out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -1063,6 +1111,7 @@ ffff halt:
     reset counter
 
 0065 add add sp:
+    pc out, mar in
     sp out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -1790,42 +1839,49 @@ ffff halt:
     reset counter
 
 0070 sub ax num:
+    pc out, mar in
     ax out, a in
     ram out, b in, pc inc
     alu op sub, alu out, ax in
     reset counter
 
 0071 sub bx num:
+    pc out, mar in
     bx out, a in
     ram out, b in, pc inc
     alu op sub, alu out, bx in
     reset counter
 
 0072 sub cx num:
+    pc out, mar in
     cx out, a in
     ram out, b in, pc inc
     alu op sub, alu out, cx in
     reset counter
 
 0073 sub dx num:
+    pc out, mar in
     dx out, a in
     ram out, b in, pc inc
     alu op sub, alu out, dx in
     reset counter
 
 0074 sub bp num:
+    pc out, mar in
     bp out, a in
     ram out, b in, pc inc
     alu op sub, alu out, bp in
     reset counter
 
 0075 sub sp num:
+    pc out, mar in
     sp out, a in
     ram out, b in, pc inc
     alu op sub, alu out, sp in
     reset counter
 
 0080 sub ax add:
+    pc out, mar in
     ax out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -1833,6 +1889,7 @@ ffff halt:
     reset counter
 
 0081 sub bx add:
+    pc out, mar in
     bx out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -1840,6 +1897,7 @@ ffff halt:
     reset counter
 
 0082 sub cx add:
+    pc out, mar in
     cx out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -1847,6 +1905,7 @@ ffff halt:
     reset counter
 
 0083 sub dx add:
+    pc out, mar in
     dx out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -1854,6 +1913,7 @@ ffff halt:
     reset counter
 
 0084 sub bp add:
+    pc out, mar in
     bp out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -1861,6 +1921,7 @@ ffff halt:
     reset counter
 
 0085 sub sp add:
+    pc out, mar in
     sp out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -1868,6 +1929,7 @@ ffff halt:
     reset counter
 
 0090 sub add ax:
+    pc out, mar in
     ax out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -1875,6 +1937,7 @@ ffff halt:
     reset counter
 
 0091 sub add bx:
+    pc out, mar in
     bx out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -1882,6 +1945,7 @@ ffff halt:
     reset counter
 
 0092 sub add cx:
+    pc out, mar in
     cx out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -1889,6 +1953,7 @@ ffff halt:
     reset counter
 
 0093 sub add dx:
+    pc out, mar in
     dx out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -1896,6 +1961,7 @@ ffff halt:
     reset counter
 
 0094 sub add bp:
+    pc out, mar in
     bp out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -1903,6 +1969,7 @@ ffff halt:
     reset counter
 
 0095 sub add sp:
+    pc out, mar in
     sp out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -2630,42 +2697,49 @@ ffff halt:
     reset counter
 
 00a0 mul ax num:
+    pc out, mar in
     ax out, a in
     ram out, b in, pc inc
     alu op mul, alu out, ax in
     reset counter
 
 00a1 mul bx num:
+    pc out, mar in
     bx out, a in
     ram out, b in, pc inc
     alu op mul, alu out, bx in
     reset counter
 
 00a2 mul cx num:
+    pc out, mar in
     cx out, a in
     ram out, b in, pc inc
     alu op mul, alu out, cx in
     reset counter
 
 00a3 mul dx num:
+    pc out, mar in
     dx out, a in
     ram out, b in, pc inc
     alu op mul, alu out, dx in
     reset counter
 
 00a4 mul bp num:
+    pc out, mar in
     bp out, a in
     ram out, b in, pc inc
     alu op mul, alu out, bp in
     reset counter
 
 00a5 mul sp num:
+    pc out, mar in
     sp out, a in
     ram out, b in, pc inc
     alu op mul, alu out, sp in
     reset counter
 
 00b0 mul ax add:
+    pc out, mar in
     ax out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -2673,6 +2747,7 @@ ffff halt:
     reset counter
 
 00b1 mul bx add:
+    pc out, mar in
     bx out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -2680,6 +2755,7 @@ ffff halt:
     reset counter
 
 00b2 mul cx add:
+    pc out, mar in
     cx out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -2687,6 +2763,7 @@ ffff halt:
     reset counter
 
 00b3 mul dx add:
+    pc out, mar in
     dx out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -2694,6 +2771,7 @@ ffff halt:
     reset counter
 
 00b4 mul bp add:
+    pc out, mar in
     bp out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -2701,6 +2779,7 @@ ffff halt:
     reset counter
 
 00b5 mul sp add:
+    pc out, mar in
     sp out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -2708,6 +2787,7 @@ ffff halt:
     reset counter
 
 00c0 mul add ax:
+    pc out, mar in
     ax out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -2715,6 +2795,7 @@ ffff halt:
     reset counter
 
 00c1 mul add bx:
+    pc out, mar in
     bx out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -2722,6 +2803,7 @@ ffff halt:
     reset counter
 
 00c2 mul add cx:
+    pc out, mar in
     cx out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -2729,6 +2811,7 @@ ffff halt:
     reset counter
 
 00c3 mul add dx:
+    pc out, mar in
     dx out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -2736,6 +2819,7 @@ ffff halt:
     reset counter
 
 00c4 mul add bp:
+    pc out, mar in
     bp out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -2743,6 +2827,7 @@ ffff halt:
     reset counter
 
 00c5 mul add sp:
+    pc out, mar in
     sp out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -3470,42 +3555,49 @@ ffff halt:
     reset counter
 
 00d0 div ax num:
+    pc out, mar in
     ax out, a in
     ram out, b in, pc inc
     alu op div, alu out, ax in
     reset counter
 
 00d1 div bx num:
+    pc out, mar in
     bx out, a in
     ram out, b in, pc inc
     alu op div, alu out, bx in
     reset counter
 
 00d2 div cx num:
+    pc out, mar in
     cx out, a in
     ram out, b in, pc inc
     alu op div, alu out, cx in
     reset counter
 
 00d3 div dx num:
+    pc out, mar in
     dx out, a in
     ram out, b in, pc inc
     alu op div, alu out, dx in
     reset counter
 
 00d4 div bp num:
+    pc out, mar in
     bp out, a in
     ram out, b in, pc inc
     alu op div, alu out, bp in
     reset counter
 
 00d5 div sp num:
+    pc out, mar in
     sp out, a in
     ram out, b in, pc inc
     alu op div, alu out, sp in
     reset counter
 
 00e0 div ax add:
+    pc out, mar in
     ax out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -3513,6 +3605,7 @@ ffff halt:
     reset counter
 
 00e1 div bx add:
+    pc out, mar in
     bx out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -3520,6 +3613,7 @@ ffff halt:
     reset counter
 
 00e2 div cx add:
+    pc out, mar in
     cx out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -3527,6 +3621,7 @@ ffff halt:
     reset counter
 
 00e3 div dx add:
+    pc out, mar in
     dx out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -3534,6 +3629,7 @@ ffff halt:
     reset counter
 
 00e4 div bp add:
+    pc out, mar in
     bp out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -3541,6 +3637,7 @@ ffff halt:
     reset counter
 
 00e5 div sp add:
+    pc out, mar in
     sp out, a in
     ram out, mar in
     ram out, b in, pc inc
@@ -3548,6 +3645,7 @@ ffff halt:
     reset counter
 
 00f0 div add ax:
+    pc out, mar in
     ax out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -3555,6 +3653,7 @@ ffff halt:
     reset counter
 
 00f1 div add bx:
+    pc out, mar in
     bx out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -3562,6 +3661,7 @@ ffff halt:
     reset counter
 
 00f2 div add cx:
+    pc out, mar in
     cx out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -3569,6 +3669,7 @@ ffff halt:
     reset counter
 
 00f3 div add dx:
+    pc out, mar in
     dx out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -3576,6 +3677,7 @@ ffff halt:
     reset counter
 
 00f4 div add bp:
+    pc out, mar in
     bp out, b in
     ram out, mar in
     ram out, a in, pc inc
@@ -3583,6 +3685,7 @@ ffff halt:
     reset counter
 
 00f5 div add sp:
+    pc out, mar in
     sp out, b in
     ram out, mar in
     ram out, a in, pc inc
