@@ -63,10 +63,22 @@ Micro Instructions:
 00200000 bp in
 00400000 sp out
 00800000 sp in
-01000000 si out
-02000000 si in
-04000000 di out
-08000000 di in
+00000000 alu op add
+01000000 alu op sub
+02000000 alu op mul
+03000000 alu op div
+04000000 alu op shl
+05000000 alu op shr
+06000000 alu op sar
+07000000 alu op rol
+08000000 alu op ror
+09000000 alu op and
+0a000000 alu op or
+0b000000 alu op xor
+0c000000 alu op not
+0d000000 alu op neg
+0e000000 alu op inc
+0f000000 alu op dec
 10000000 ja
 20000000 jna
 30000000 je
