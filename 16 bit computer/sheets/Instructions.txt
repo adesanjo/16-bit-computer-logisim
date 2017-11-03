@@ -4,6 +4,10 @@ Opcodes  |  Instructions  |  Operands  |  Description
 
 0000        nop              None         Does nothing
 
+fffx        out reg                       Outputs value of specified register and halts. Execution can be resumed by pressing the reset counter button
+
+ffff        halt                          Halts execution. Execution can be resumed by pressing the reset counter button
+
             mov dest src                  Copies value of src in dest
 
 01xx        mov regd regs    None
@@ -119,6 +123,27 @@ Micro Code:
 
 0000 nop:
     reset counter
+
+fff0 out ax:
+    ax out, halt
+
+fff1 out bx:
+    bx out, halt
+
+fff2 out cx:
+    cx out, halt
+
+fff3 out dx:
+    dx out, halt
+
+fff4 out bp:
+    bp out, halt
+
+fff5 out sp:
+    sp out, halt
+
+ffff halt:
+    halt
 
 0100 mov ax ax:
     ax out, ax in

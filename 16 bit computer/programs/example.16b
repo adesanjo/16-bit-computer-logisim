@@ -1,1 +1,10 @@
+-var 456
+
 mov ax 3
+mov bx -var
+mul -var2 ax
+sub bx -var2
+add ax bx
+-var2 52
+
+out ax
