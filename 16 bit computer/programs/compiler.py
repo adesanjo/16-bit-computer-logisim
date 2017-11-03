@@ -12,8 +12,6 @@ regs=("ax","bx","cx","dx","bp","sp")
 regnums={"ax":"0","bx":"1","cx":"2","dx":"3","bp":"4","sp":"5"}
 jumps=["jmp","ja","jna","je","jne","jb","jnb","jg","jng","jl","jnl"]
 
-wordsList=[0]
-
 # variables are defined by a -
 var={}
 # labels are difined by a :
@@ -21,6 +19,8 @@ labels={}
 
 code=code.splitlines()
 code=[line.strip().split() for line in code if len(line.strip())>0]
+
+wordsList=[0]
 
 for i,line in enumerate(code):
     words=0
