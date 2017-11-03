@@ -1,26 +1,53 @@
-All numbers are given in hexadecimal. In opcodes "x" represents a variable part of the opcode. The way it varies is described in each case.
+All numbers are given in hexadecimal. In opcodes "x" represents a variable part of the opcode which depends on the registers used.
 
 Opcodes  |  Instructions  |  Operands  |  Description
 
 0000        nop              None         Does nothing
-          
-01xx        mov regd regs    None         Copies value of register regs to register regd. xx = regd number + regs number. this instruction 
-                                          For example: mov bx dx -> xx = 13, because bx would be 1 and dx would be 3
 
-001x        mov reg num      num          Copies value num to register reg. x = register number.
-                                          For example: mov bx 32 -> x = 1
+            mov dest src                  Copies value of src in dest
 
-002x        mov reg add      add          Copies value at address add to register reg. x = register number.
-                                          For example: mov si [32] -> x = 6
+01xx        mov regd regs    None
+001x        mov reg num      num
+002x        mov reg add      add
+003x        mov add reg      add
+02xx        mov reg regadd   None
+03xx        mov regadd reg   None
 
-003x        mov add reg      add          Copies value of register reg to address add. x = register number.
-                                          For example: mov [32] bx -> x = 1
+            add dest src                  Adds values of dest and src and stores result in dest
 
-02xx        mov reg regadd   None         Copies value at address in register regadd to register reg. xx = reg number + regadd number.
-                                          For example: mov si [ax] -> xx = 60
+04xx        add regd regs    None
+004x        add reg num      num
+005x        add reg add      add
+006x        add add reg      add
+05xx        add reg regadd   None
+06xx        add regadd reg   None
 
-03xx        mov regadd reg   None         Copies value of register reg to address in register regadd. xx = regadd number + reg number.
-                                          For example: mov [bp] bx -> xx = 41
+            sub dest src                  Subtracts values of dest and src and stores result in dest
+
+07xx        sub regd regs    None
+007x        sub reg num      num
+008x        sub reg add      add
+009x        sub add reg      add
+08xx        sub reg regadd   None
+09xx        sub regadd reg   None
+
+            mul dest src                  Multiplies values of dest and src and stores result in dest
+
+0axx        mul regd regs    None
+00ax        mul reg num      num
+00bx        mul reg add      add
+00cx        mul add reg      add
+0bxx        mul reg regadd   None
+0cxx        mul regadd reg   None
+
+            div dest src                  Divides values of dest and src and stores result in dest
+
+0dxx        div regd regs    None
+00dx        div reg num      num
+00ex        div reg add      add
+00fx        div add reg      add
+0exx        div reg regadd   None
+0fxx        div regadd reg   None
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -679,6 +706,3366 @@ Micro Code:
 0355 mov [sp] sp:
     sp out, mar in
     sp out, ram in
+    reset counter
+
+0400 add ax ax:
+    ax out, a in
+    ax out, b in
+    alu op add, alu out, ax in
+    reset counter
+
+0401 add ax bx:
+    ax out, a in
+    bx out, b in
+    alu op add, alu out, ax in
+    reset counter
+
+0402 add ax cx:
+    ax out, a in
+    cx out, b in
+    alu op add, alu out, ax in
+    reset counter
+
+0403 add ax dx:
+    ax out, a in
+    dx out, b in
+    alu op add, alu out, ax in
+    reset counter
+
+0404 add ax bp:
+    ax out, a in
+    bp out, b in
+    alu op add, alu out, ax in
+    reset counter
+
+0405 add ax sp:
+    ax out, a in
+    sp out, b in
+    alu op add, alu out, ax in
+    reset counter
+
+0410 add bx ax:
+    bx out, a in
+    ax out, b in
+    alu op add, alu out, bx in
+    reset counter
+
+0411 add bx bx:
+    bx out, a in
+    bx out, b in
+    alu op add, alu out, bx in
+    reset counter
+
+0412 add bx cx:
+    bx out, a in
+    cx out, b in
+    alu op add, alu out, bx in
+    reset counter
+
+0413 add bx dx:
+    bx out, a in
+    dx out, b in
+    alu op add, alu out, bx in
+    reset counter
+
+0414 add bx bp:
+    bx out, a in
+    bp out, b in
+    alu op add, alu out, bx in
+    reset counter
+
+0415 add bx sp:
+    bx out, a in
+    sp out, b in
+    alu op add, alu out, bx in
+    reset counter
+
+0420 add cx ax:
+    cx out, a in
+    ax out, b in
+    alu op add, alu out, cx in
+    reset counter
+
+0421 add cx bx:
+    cx out, a in
+    bx out, b in
+    alu op add, alu out, cx in
+    reset counter
+
+0422 add cx cx:
+    cx out, a in
+    cx out, b in
+    alu op add, alu out, cx in
+    reset counter
+
+0423 add cx dx:
+    cx out, a in
+    dx out, b in
+    alu op add, alu out, cx in
+    reset counter
+
+0424 add cx bp:
+    cx out, a in
+    bp out, b in
+    alu op add, alu out, cx in
+    reset counter
+
+0425 add cx sp:
+    cx out, a in
+    sp out, b in
+    alu op add, alu out, cx in
+    reset counter
+
+0430 add dx ax:
+    dx out, a in
+    ax out, b in
+    alu op add, alu out, dx in
+    reset counter
+
+0431 add dx bx:
+    dx out, a in
+    bx out, b in
+    alu op add, alu out, dx in
+    reset counter
+
+0432 add dx cx:
+    dx out, a in
+    cx out, b in
+    alu op add, alu out, dx in
+    reset counter
+
+0433 add dx dx:
+    dx out, a in
+    dx out, b in
+    alu op add, alu out, dx in
+    reset counter
+
+0434 add dx bp:
+    dx out, a in
+    bp out, b in
+    alu op add, alu out, dx in
+    reset counter
+
+0435 add dx sp:
+    dx out, a in
+    sp out, b in
+    alu op add, alu out, dx in
+    reset counter
+
+0440 add bp ax:
+    bp out, a in
+    ax out, b in
+    alu op add, alu out, bp in
+    reset counter
+
+0441 add bp bx:
+    bp out, a in
+    bx out, b in
+    alu op add, alu out, bp in
+    reset counter
+
+0442 add bp cx:
+    bp out, a in
+    cx out, b in
+    alu op add, alu out, bp in
+    reset counter
+
+0443 add bp dx:
+    bp out, a in
+    dx out, b in
+    alu op add, alu out, bp in
+    reset counter
+
+0444 add bp bp:
+    bp out, a in
+    bp out, b in
+    alu op add, alu out, bp in
+    reset counter
+
+0445 add bp sp:
+    bp out, a in
+    sp out, b in
+    alu op add, alu out, bp in
+    reset counter
+
+0450 add sp ax:
+    sp out, a in
+    ax out, b in
+    alu op add, alu out, sp in
+    reset counter
+
+0451 add sp bx:
+    sp out, a in
+    bx out, b in
+    alu op add, alu out, sp in
+    reset counter
+
+0452 add sp cx:
+    sp out, a in
+    cx out, b in
+    alu op add, alu out, sp in
+    reset counter
+
+0453 add sp dx:
+    sp out, a in
+    dx out, b in
+    alu op add, alu out, sp in
+    reset counter
+
+0454 add sp bp:
+    sp out, a in
+    bp out, b in
+    alu op add, alu out, sp in
+    reset counter
+
+0455 add sp sp:
+    sp out, a in
+    sp out, b in
+    alu op add, alu out, sp in
+    reset counter
+
+0040 add ax num:
+    ax out, a in
+    ram out, b in, pc inc
+    alu op add, alu out, ax in
+    reset counter
+
+0041 add bx num:
+    bx out, a in
+    ram out, b in, pc inc
+    alu op add, alu out, bx in
+    reset counter
+
+0042 add cx num:
+    cx out, a in
+    ram out, b in, pc inc
+    alu op add, alu out, cx in
+    reset counter
+
+0043 add dx num:
+    dx out, a in
+    ram out, b in, pc inc
+    alu op add, alu out, dx in
+    reset counter
+
+0044 add bp num:
+    bp out, a in
+    ram out, b in, pc inc
+    alu op add, alu out, bp in
+    reset counter
+
+0045 add sp num:
+    sp out, a in
+    ram out, b in, pc inc
+    alu op add, alu out, sp in
+    reset counter
+
+0050 add ax add:
+    ax out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op add, alu out, ax in
+    reset counter
+
+0051 add bx add:
+    bx out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op add, alu out, bx in
+    reset counter
+
+0052 add cx add:
+    cx out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op add, alu out, cx in
+    reset counter
+
+0053 add dx add:
+    dx out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op add, alu out, dx in
+    reset counter
+
+0054 add bp add:
+    bp out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op add, alu out, bp in
+    reset counter
+
+0055 add sp add:
+    sp out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op add, alu out, sp in
+    reset counter
+
+0060 add add ax:
+    ax out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op add, alu out, ram in
+    reset counter
+
+0061 add add bx:
+    bx out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op add, alu out, ram in
+    reset counter
+
+0062 add add cx:
+    cx out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op add, alu out, ram in
+    reset counter
+
+0063 add add dx:
+    dx out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op add, alu out, ram in
+    reset counter
+
+0064 add add bp:
+    bp out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op add, alu out, ram in
+    reset counter
+
+0065 add add sp:
+    sp out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op add, alu out, ram in
+    reset counter
+
+0500 add ax [ax]:
+    ax out, a in
+    ax out, mar in
+    ram out, b in
+    alu op add, alu out, ax in
+    reset counter
+
+0501 add ax [bx]:
+    ax out, a in
+    bx out, mar in
+    ram out, b in
+    alu op add, alu out, ax in
+    reset counter
+
+0502 add ax [cx]:
+    ax out, a in
+    cx out, mar in
+    ram out, b in
+    alu op add, alu out, ax in
+    reset counter
+
+0503 add ax [dx]:
+    ax out, a in
+    dx out, mar in
+    ram out, b in
+    alu op add, alu out, ax in
+    reset counter
+
+0504 add ax [bp]:
+    ax out, a in
+    bp out, mar in
+    ram out, b in
+    alu op add, alu out, ax in
+    reset counter
+
+0505 add ax [sp]:
+    ax out, a in
+    sp out, mar in
+    ram out, b in
+    alu op add, alu out, ax in
+    reset counter
+
+0510 add bx [ax]:
+    bx out, a in
+    ax out, mar in
+    ram out, b in
+    alu op add, alu out, bx in
+    reset counter
+
+0511 add bx [bx]:
+    bx out, a in
+    bx out, mar in
+    ram out, b in
+    alu op add, alu out, bx in
+    reset counter
+
+0512 add bx [cx]:
+    bx out, a in
+    cx out, mar in
+    ram out, b in
+    alu op add, alu out, bx in
+    reset counter
+
+0513 add bx [dx]:
+    bx out, a in
+    dx out, mar in
+    ram out, b in
+    alu op add, alu out, bx in
+    reset counter
+
+0514 add bx [bp]:
+    bx out, a in
+    bp out, mar in
+    ram out, b in
+    alu op add, alu out, bx in
+    reset counter
+
+0515 add bx [sp]:
+    bx out, a in
+    sp out, mar in
+    ram out, b in
+    alu op add, alu out, bx in
+    reset counter
+
+0520 add cx [ax]:
+    cx out, a in
+    ax out, mar in
+    ram out, b in
+    alu op add, alu out, cx in
+    reset counter
+
+0521 add cx [bx]:
+    cx out, a in
+    bx out, mar in
+    ram out, b in
+    alu op add, alu out, cx in
+    reset counter
+
+0522 add cx [cx]:
+    cx out, a in
+    cx out, mar in
+    ram out, b in
+    alu op add, alu out, cx in
+    reset counter
+
+0523 add cx [dx]:
+    cx out, a in
+    dx out, mar in
+    ram out, b in
+    alu op add, alu out, cx in
+    reset counter
+
+0524 add cx [bp]:
+    cx out, a in
+    bp out, mar in
+    ram out, b in
+    alu op add, alu out, cx in
+    reset counter
+
+0525 add cx [sp]:
+    cx out, a in
+    sp out, mar in
+    ram out, b in
+    alu op add, alu out, cx in
+    reset counter
+
+0530 add dx [ax]:
+    dx out, a in
+    ax out, mar in
+    ram out, b in
+    alu op add, alu out, dx in
+    reset counter
+
+0531 add dx [bx]:
+    dx out, a in
+    bx out, mar in
+    ram out, b in
+    alu op add, alu out, dx in
+    reset counter
+
+0532 add dx [cx]:
+    dx out, a in
+    cx out, mar in
+    ram out, b in
+    alu op add, alu out, dx in
+    reset counter
+
+0533 add dx [dx]:
+    dx out, a in
+    dx out, mar in
+    ram out, b in
+    alu op add, alu out, dx in
+    reset counter
+
+0534 add dx [bp]:
+    dx out, a in
+    bp out, mar in
+    ram out, b in
+    alu op add, alu out, dx in
+    reset counter
+
+0535 add dx [sp]:
+    dx out, a in
+    sp out, mar in
+    ram out, b in
+    alu op add, alu out, dx in
+    reset counter
+
+0540 add bp [ax]:
+    bp out, a in
+    ax out, mar in
+    ram out, b in
+    alu op add, alu out, bp in
+    reset counter
+
+0541 add bp [bx]:
+    bp out, a in
+    bx out, mar in
+    ram out, b in
+    alu op add, alu out, bp in
+    reset counter
+
+0542 add bp [cx]:
+    bp out, a in
+    cx out, mar in
+    ram out, b in
+    alu op add, alu out, bp in
+    reset counter
+
+0543 add bp [dx]:
+    bp out, a in
+    dx out, mar in
+    ram out, b in
+    alu op add, alu out, bp in
+    reset counter
+
+0544 add bp [bp]:
+    bp out, a in
+    bp out, mar in
+    ram out, b in
+    alu op add, alu out, bp in
+    reset counter
+
+0545 add bp [sp]:
+    bp out, a in
+    sp out, mar in
+    ram out, b in
+    alu op add, alu out, bp in
+    reset counter
+
+0550 add sp [ax]:
+    sp out, a in
+    ax out, mar in
+    ram out, b in
+    alu op add, alu out, sp in
+    reset counter
+
+0551 add sp [bx]:
+    sp out, a in
+    bx out, mar in
+    ram out, b in
+    alu op add, alu out, sp in
+    reset counter
+
+0552 add sp [cx]:
+    sp out, a in
+    cx out, mar in
+    ram out, b in
+    alu op add, alu out, sp in
+    reset counter
+
+0553 add sp [dx]:
+    sp out, a in
+    dx out, mar in
+    ram out, b in
+    alu op add, alu out, sp in
+    reset counter
+
+0554 add sp [bp]:
+    sp out, a in
+    bp out, mar in
+    ram out, b in
+    alu op add, alu out, sp in
+    reset counter
+
+0555 add sp [sp]:
+    sp out, a in
+    sp out, mar in
+    ram out, b in
+    alu op add, alu out, sp in
+    reset counter
+
+0600 add [ax] ax:
+    ax out, mar in
+    ram out, a in
+    ax out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0601 add [ax] bx:
+    ax out, mar in
+    ram out, a in
+    bx out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0602 add [ax] cx:
+    ax out, mar in
+    ram out, a in
+    cx out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0603 add [ax] dx:
+    ax out, mar in
+    ram out, a in
+    dx out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0604 add [ax] bp:
+    ax out, mar in
+    ram out, a in
+    bp out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0605 add [ax] sp:
+    ax out, mar in
+    ram out, a in
+    sp out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0610 add [bx] ax:
+    bx out, mar in
+    ram out, a in
+    ax out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0611 add [bx] bx:
+    bx out, mar in
+    ram out, a in
+    bx out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0612 add [bx] cx:
+    bx out, mar in
+    ram out, a in
+    cx out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0613 add [bx] dx:
+    bx out, mar in
+    ram out, a in
+    dx out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0614 add [bx] bp:
+    bx out, mar in
+    ram out, a in
+    bp out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0615 add [bx] sp:
+    bx out, mar in
+    ram out, a in
+    sp out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0620 add [cx] ax:
+    cx out, mar in
+    ram out, a in
+    ax out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0621 add [cx] bx:
+    cx out, mar in
+    ram out, a in
+    bx out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0622 add [cx] cx:
+    cx out, mar in
+    ram out, a in
+    cx out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0623 add [cx] dx:
+    cx out, mar in
+    ram out, a in
+    dx out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0624 add [cx] bp:
+    cx out, mar in
+    ram out, a in
+    bp out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0625 add [cx] sp:
+    cx out, mar in
+    ram out, a in
+    sp out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0630 add [dx] ax:
+    dx out, mar in
+    ram out, a in
+    ax out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0631 add [dx] bx:
+    dx out, mar in
+    ram out, a in
+    bx out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0632 add [dx] cx:
+    dx out, mar in
+    ram out, a in
+    cx out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0633 add [dx] dx:
+    dx out, mar in
+    ram out, a in
+    dx out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0634 add [dx] bp:
+    dx out, mar in
+    ram out, a in
+    bp out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0635 add [dx] sp:
+    dx out, mar in
+    ram out, a in
+    sp out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0640 add [bp] ax:
+    bp out, mar in
+    ram out, a in
+    ax out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0641 add [bp] bx:
+    bp out, mar in
+    ram out, a in
+    bx out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0642 add [bp] cx:
+    bp out, mar in
+    ram out, a in
+    cx out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0643 add [bp] dx:
+    bp out, mar in
+    ram out, a in
+    dx out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0644 add [bp] bp:
+    bp out, mar in
+    ram out, a in
+    bp out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0645 add [bp] sp:
+    bp out, mar in
+    ram out, a in
+    sp out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0650 add [sp] ax:
+    sp out, mar in
+    ram out, a in
+    ax out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0651 add [sp] bx:
+    sp out, mar in
+    ram out, a in
+    bx out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0652 add [sp] cx:
+    sp out, mar in
+    ram out, a in
+    cx out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0653 add [sp] dx:
+    sp out, mar in
+    ram out, a in
+    dx out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0654 add [sp] bp:
+    sp out, mar in
+    ram out, a in
+    bp out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0655 add [sp] sp:
+    sp out, mar in
+    ram out, a in
+    sp out, b in
+    alu op add, alu out, ram in
+    reset counter
+
+0700 sub ax ax:
+    ax out, a in
+    ax out, b in
+    alu op sub, alu out, ax in
+    reset counter
+
+0701 sub ax bx:
+    ax out, a in
+    bx out, b in
+    alu op sub, alu out, ax in
+    reset counter
+
+0702 sub ax cx:
+    ax out, a in
+    cx out, b in
+    alu op sub, alu out, ax in
+    reset counter
+
+0703 sub ax dx:
+    ax out, a in
+    dx out, b in
+    alu op sub, alu out, ax in
+    reset counter
+
+0704 sub ax bp:
+    ax out, a in
+    bp out, b in
+    alu op sub, alu out, ax in
+    reset counter
+
+0705 sub ax sp:
+    ax out, a in
+    sp out, b in
+    alu op sub, alu out, ax in
+    reset counter
+
+0710 sub bx ax:
+    bx out, a in
+    ax out, b in
+    alu op sub, alu out, bx in
+    reset counter
+
+0711 sub bx bx:
+    bx out, a in
+    bx out, b in
+    alu op sub, alu out, bx in
+    reset counter
+
+0712 sub bx cx:
+    bx out, a in
+    cx out, b in
+    alu op sub, alu out, bx in
+    reset counter
+
+0713 sub bx dx:
+    bx out, a in
+    dx out, b in
+    alu op sub, alu out, bx in
+    reset counter
+
+0714 sub bx bp:
+    bx out, a in
+    bp out, b in
+    alu op sub, alu out, bx in
+    reset counter
+
+0715 sub bx sp:
+    bx out, a in
+    sp out, b in
+    alu op sub, alu out, bx in
+    reset counter
+
+0720 sub cx ax:
+    cx out, a in
+    ax out, b in
+    alu op sub, alu out, cx in
+    reset counter
+
+0721 sub cx bx:
+    cx out, a in
+    bx out, b in
+    alu op sub, alu out, cx in
+    reset counter
+
+0722 sub cx cx:
+    cx out, a in
+    cx out, b in
+    alu op sub, alu out, cx in
+    reset counter
+
+0723 sub cx dx:
+    cx out, a in
+    dx out, b in
+    alu op sub, alu out, cx in
+    reset counter
+
+0724 sub cx bp:
+    cx out, a in
+    bp out, b in
+    alu op sub, alu out, cx in
+    reset counter
+
+0725 sub cx sp:
+    cx out, a in
+    sp out, b in
+    alu op sub, alu out, cx in
+    reset counter
+
+0730 sub dx ax:
+    dx out, a in
+    ax out, b in
+    alu op sub, alu out, dx in
+    reset counter
+
+0731 sub dx bx:
+    dx out, a in
+    bx out, b in
+    alu op sub, alu out, dx in
+    reset counter
+
+0732 sub dx cx:
+    dx out, a in
+    cx out, b in
+    alu op sub, alu out, dx in
+    reset counter
+
+0733 sub dx dx:
+    dx out, a in
+    dx out, b in
+    alu op sub, alu out, dx in
+    reset counter
+
+0734 sub dx bp:
+    dx out, a in
+    bp out, b in
+    alu op sub, alu out, dx in
+    reset counter
+
+0735 sub dx sp:
+    dx out, a in
+    sp out, b in
+    alu op sub, alu out, dx in
+    reset counter
+
+0740 sub bp ax:
+    bp out, a in
+    ax out, b in
+    alu op sub, alu out, bp in
+    reset counter
+
+0741 sub bp bx:
+    bp out, a in
+    bx out, b in
+    alu op sub, alu out, bp in
+    reset counter
+
+0742 sub bp cx:
+    bp out, a in
+    cx out, b in
+    alu op sub, alu out, bp in
+    reset counter
+
+0743 sub bp dx:
+    bp out, a in
+    dx out, b in
+    alu op sub, alu out, bp in
+    reset counter
+
+0744 sub bp bp:
+    bp out, a in
+    bp out, b in
+    alu op sub, alu out, bp in
+    reset counter
+
+0745 sub bp sp:
+    bp out, a in
+    sp out, b in
+    alu op sub, alu out, bp in
+    reset counter
+
+0750 sub sp ax:
+    sp out, a in
+    ax out, b in
+    alu op sub, alu out, sp in
+    reset counter
+
+0751 sub sp bx:
+    sp out, a in
+    bx out, b in
+    alu op sub, alu out, sp in
+    reset counter
+
+0752 sub sp cx:
+    sp out, a in
+    cx out, b in
+    alu op sub, alu out, sp in
+    reset counter
+
+0753 sub sp dx:
+    sp out, a in
+    dx out, b in
+    alu op sub, alu out, sp in
+    reset counter
+
+0754 sub sp bp:
+    sp out, a in
+    bp out, b in
+    alu op sub, alu out, sp in
+    reset counter
+
+0755 sub sp sp:
+    sp out, a in
+    sp out, b in
+    alu op sub, alu out, sp in
+    reset counter
+
+0070 sub ax num:
+    ax out, a in
+    ram out, b in, pc inc
+    alu op sub, alu out, ax in
+    reset counter
+
+0071 sub bx num:
+    bx out, a in
+    ram out, b in, pc inc
+    alu op sub, alu out, bx in
+    reset counter
+
+0072 sub cx num:
+    cx out, a in
+    ram out, b in, pc inc
+    alu op sub, alu out, cx in
+    reset counter
+
+0073 sub dx num:
+    dx out, a in
+    ram out, b in, pc inc
+    alu op sub, alu out, dx in
+    reset counter
+
+0074 sub bp num:
+    bp out, a in
+    ram out, b in, pc inc
+    alu op sub, alu out, bp in
+    reset counter
+
+0075 sub sp num:
+    sp out, a in
+    ram out, b in, pc inc
+    alu op sub, alu out, sp in
+    reset counter
+
+0080 sub ax add:
+    ax out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op sub, alu out, ax in
+    reset counter
+
+0081 sub bx add:
+    bx out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op sub, alu out, bx in
+    reset counter
+
+0082 sub cx add:
+    cx out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op sub, alu out, cx in
+    reset counter
+
+0083 sub dx add:
+    dx out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op sub, alu out, dx in
+    reset counter
+
+0084 sub bp add:
+    bp out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op sub, alu out, bp in
+    reset counter
+
+0085 sub sp add:
+    sp out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op sub, alu out, sp in
+    reset counter
+
+0090 sub add ax:
+    ax out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op sub, alu out, ram in
+    reset counter
+
+0091 sub add bx:
+    bx out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op sub, alu out, ram in
+    reset counter
+
+0092 sub add cx:
+    cx out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op sub, alu out, ram in
+    reset counter
+
+0093 sub add dx:
+    dx out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op sub, alu out, ram in
+    reset counter
+
+0094 sub add bp:
+    bp out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op sub, alu out, ram in
+    reset counter
+
+0095 sub add sp:
+    sp out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op sub, alu out, ram in
+    reset counter
+
+0800 sub ax [ax]:
+    ax out, a in
+    ax out, mar in
+    ram out, b in
+    alu op sub, alu out, ax in
+    reset counter
+
+0801 sub ax [bx]:
+    ax out, a in
+    bx out, mar in
+    ram out, b in
+    alu op sub, alu out, ax in
+    reset counter
+
+0802 sub ax [cx]:
+    ax out, a in
+    cx out, mar in
+    ram out, b in
+    alu op sub, alu out, ax in
+    reset counter
+
+0803 sub ax [dx]:
+    ax out, a in
+    dx out, mar in
+    ram out, b in
+    alu op sub, alu out, ax in
+    reset counter
+
+0804 sub ax [bp]:
+    ax out, a in
+    bp out, mar in
+    ram out, b in
+    alu op sub, alu out, ax in
+    reset counter
+
+0805 sub ax [sp]:
+    ax out, a in
+    sp out, mar in
+    ram out, b in
+    alu op sub, alu out, ax in
+    reset counter
+
+0810 sub bx [ax]:
+    bx out, a in
+    ax out, mar in
+    ram out, b in
+    alu op sub, alu out, bx in
+    reset counter
+
+0811 sub bx [bx]:
+    bx out, a in
+    bx out, mar in
+    ram out, b in
+    alu op sub, alu out, bx in
+    reset counter
+
+0812 sub bx [cx]:
+    bx out, a in
+    cx out, mar in
+    ram out, b in
+    alu op sub, alu out, bx in
+    reset counter
+
+0813 sub bx [dx]:
+    bx out, a in
+    dx out, mar in
+    ram out, b in
+    alu op sub, alu out, bx in
+    reset counter
+
+0814 sub bx [bp]:
+    bx out, a in
+    bp out, mar in
+    ram out, b in
+    alu op sub, alu out, bx in
+    reset counter
+
+0815 sub bx [sp]:
+    bx out, a in
+    sp out, mar in
+    ram out, b in
+    alu op sub, alu out, bx in
+    reset counter
+
+0820 sub cx [ax]:
+    cx out, a in
+    ax out, mar in
+    ram out, b in
+    alu op sub, alu out, cx in
+    reset counter
+
+0821 sub cx [bx]:
+    cx out, a in
+    bx out, mar in
+    ram out, b in
+    alu op sub, alu out, cx in
+    reset counter
+
+0822 sub cx [cx]:
+    cx out, a in
+    cx out, mar in
+    ram out, b in
+    alu op sub, alu out, cx in
+    reset counter
+
+0823 sub cx [dx]:
+    cx out, a in
+    dx out, mar in
+    ram out, b in
+    alu op sub, alu out, cx in
+    reset counter
+
+0824 sub cx [bp]:
+    cx out, a in
+    bp out, mar in
+    ram out, b in
+    alu op sub, alu out, cx in
+    reset counter
+
+0825 sub cx [sp]:
+    cx out, a in
+    sp out, mar in
+    ram out, b in
+    alu op sub, alu out, cx in
+    reset counter
+
+0830 sub dx [ax]:
+    dx out, a in
+    ax out, mar in
+    ram out, b in
+    alu op sub, alu out, dx in
+    reset counter
+
+0831 sub dx [bx]:
+    dx out, a in
+    bx out, mar in
+    ram out, b in
+    alu op sub, alu out, dx in
+    reset counter
+
+0832 sub dx [cx]:
+    dx out, a in
+    cx out, mar in
+    ram out, b in
+    alu op sub, alu out, dx in
+    reset counter
+
+0833 sub dx [dx]:
+    dx out, a in
+    dx out, mar in
+    ram out, b in
+    alu op sub, alu out, dx in
+    reset counter
+
+0834 sub dx [bp]:
+    dx out, a in
+    bp out, mar in
+    ram out, b in
+    alu op sub, alu out, dx in
+    reset counter
+
+0835 sub dx [sp]:
+    dx out, a in
+    sp out, mar in
+    ram out, b in
+    alu op sub, alu out, dx in
+    reset counter
+
+0840 sub bp [ax]:
+    bp out, a in
+    ax out, mar in
+    ram out, b in
+    alu op sub, alu out, bp in
+    reset counter
+
+0841 sub bp [bx]:
+    bp out, a in
+    bx out, mar in
+    ram out, b in
+    alu op sub, alu out, bp in
+    reset counter
+
+0842 sub bp [cx]:
+    bp out, a in
+    cx out, mar in
+    ram out, b in
+    alu op sub, alu out, bp in
+    reset counter
+
+0843 sub bp [dx]:
+    bp out, a in
+    dx out, mar in
+    ram out, b in
+    alu op sub, alu out, bp in
+    reset counter
+
+0844 sub bp [bp]:
+    bp out, a in
+    bp out, mar in
+    ram out, b in
+    alu op sub, alu out, bp in
+    reset counter
+
+0845 sub bp [sp]:
+    bp out, a in
+    sp out, mar in
+    ram out, b in
+    alu op sub, alu out, bp in
+    reset counter
+
+0850 sub sp [ax]:
+    sp out, a in
+    ax out, mar in
+    ram out, b in
+    alu op sub, alu out, sp in
+    reset counter
+
+0851 sub sp [bx]:
+    sp out, a in
+    bx out, mar in
+    ram out, b in
+    alu op sub, alu out, sp in
+    reset counter
+
+0852 sub sp [cx]:
+    sp out, a in
+    cx out, mar in
+    ram out, b in
+    alu op sub, alu out, sp in
+    reset counter
+
+0853 sub sp [dx]:
+    sp out, a in
+    dx out, mar in
+    ram out, b in
+    alu op sub, alu out, sp in
+    reset counter
+
+0854 sub sp [bp]:
+    sp out, a in
+    bp out, mar in
+    ram out, b in
+    alu op sub, alu out, sp in
+    reset counter
+
+0855 sub sp [sp]:
+    sp out, a in
+    sp out, mar in
+    ram out, b in
+    alu op sub, alu out, sp in
+    reset counter
+
+0900 sub [ax] ax:
+    ax out, mar in
+    ram out, a in
+    ax out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0901 sub [ax] bx:
+    ax out, mar in
+    ram out, a in
+    bx out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0902 sub [ax] cx:
+    ax out, mar in
+    ram out, a in
+    cx out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0903 sub [ax] dx:
+    ax out, mar in
+    ram out, a in
+    dx out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0904 sub [ax] bp:
+    ax out, mar in
+    ram out, a in
+    bp out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0905 sub [ax] sp:
+    ax out, mar in
+    ram out, a in
+    sp out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0910 sub [bx] ax:
+    bx out, mar in
+    ram out, a in
+    ax out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0911 sub [bx] bx:
+    bx out, mar in
+    ram out, a in
+    bx out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0912 sub [bx] cx:
+    bx out, mar in
+    ram out, a in
+    cx out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0913 sub [bx] dx:
+    bx out, mar in
+    ram out, a in
+    dx out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0914 sub [bx] bp:
+    bx out, mar in
+    ram out, a in
+    bp out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0915 sub [bx] sp:
+    bx out, mar in
+    ram out, a in
+    sp out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0920 sub [cx] ax:
+    cx out, mar in
+    ram out, a in
+    ax out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0921 sub [cx] bx:
+    cx out, mar in
+    ram out, a in
+    bx out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0922 sub [cx] cx:
+    cx out, mar in
+    ram out, a in
+    cx out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0923 sub [cx] dx:
+    cx out, mar in
+    ram out, a in
+    dx out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0924 sub [cx] bp:
+    cx out, mar in
+    ram out, a in
+    bp out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0925 sub [cx] sp:
+    cx out, mar in
+    ram out, a in
+    sp out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0930 sub [dx] ax:
+    dx out, mar in
+    ram out, a in
+    ax out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0931 sub [dx] bx:
+    dx out, mar in
+    ram out, a in
+    bx out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0932 sub [dx] cx:
+    dx out, mar in
+    ram out, a in
+    cx out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0933 sub [dx] dx:
+    dx out, mar in
+    ram out, a in
+    dx out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0934 sub [dx] bp:
+    dx out, mar in
+    ram out, a in
+    bp out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0935 sub [dx] sp:
+    dx out, mar in
+    ram out, a in
+    sp out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0940 sub [bp] ax:
+    bp out, mar in
+    ram out, a in
+    ax out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0941 sub [bp] bx:
+    bp out, mar in
+    ram out, a in
+    bx out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0942 sub [bp] cx:
+    bp out, mar in
+    ram out, a in
+    cx out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0943 sub [bp] dx:
+    bp out, mar in
+    ram out, a in
+    dx out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0944 sub [bp] bp:
+    bp out, mar in
+    ram out, a in
+    bp out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0945 sub [bp] sp:
+    bp out, mar in
+    ram out, a in
+    sp out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0950 sub [sp] ax:
+    sp out, mar in
+    ram out, a in
+    ax out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0951 sub [sp] bx:
+    sp out, mar in
+    ram out, a in
+    bx out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0952 sub [sp] cx:
+    sp out, mar in
+    ram out, a in
+    cx out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0953 sub [sp] dx:
+    sp out, mar in
+    ram out, a in
+    dx out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0954 sub [sp] bp:
+    sp out, mar in
+    ram out, a in
+    bp out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0955 sub [sp] sp:
+    sp out, mar in
+    ram out, a in
+    sp out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0a00 mul ax ax:
+    ax out, a in
+    ax out, b in
+    alu op mul, alu out, ax in
+    reset counter
+
+0a01 mul ax bx:
+    ax out, a in
+    bx out, b in
+    alu op mul, alu out, ax in
+    reset counter
+
+0a02 mul ax cx:
+    ax out, a in
+    cx out, b in
+    alu op mul, alu out, ax in
+    reset counter
+
+0a03 mul ax dx:
+    ax out, a in
+    dx out, b in
+    alu op mul, alu out, ax in
+    reset counter
+
+0a04 mul ax bp:
+    ax out, a in
+    bp out, b in
+    alu op mul, alu out, ax in
+    reset counter
+
+0a05 mul ax sp:
+    ax out, a in
+    sp out, b in
+    alu op mul, alu out, ax in
+    reset counter
+
+0a10 mul bx ax:
+    bx out, a in
+    ax out, b in
+    alu op mul, alu out, bx in
+    reset counter
+
+0a11 mul bx bx:
+    bx out, a in
+    bx out, b in
+    alu op mul, alu out, bx in
+    reset counter
+
+0a12 mul bx cx:
+    bx out, a in
+    cx out, b in
+    alu op mul, alu out, bx in
+    reset counter
+
+0a13 mul bx dx:
+    bx out, a in
+    dx out, b in
+    alu op mul, alu out, bx in
+    reset counter
+
+0a14 mul bx bp:
+    bx out, a in
+    bp out, b in
+    alu op mul, alu out, bx in
+    reset counter
+
+0a15 mul bx sp:
+    bx out, a in
+    sp out, b in
+    alu op mul, alu out, bx in
+    reset counter
+
+0a20 mul cx ax:
+    cx out, a in
+    ax out, b in
+    alu op mul, alu out, cx in
+    reset counter
+
+0a21 mul cx bx:
+    cx out, a in
+    bx out, b in
+    alu op mul, alu out, cx in
+    reset counter
+
+0a22 mul cx cx:
+    cx out, a in
+    cx out, b in
+    alu op mul, alu out, cx in
+    reset counter
+
+0a23 mul cx dx:
+    cx out, a in
+    dx out, b in
+    alu op mul, alu out, cx in
+    reset counter
+
+0a24 mul cx bp:
+    cx out, a in
+    bp out, b in
+    alu op mul, alu out, cx in
+    reset counter
+
+0a25 mul cx sp:
+    cx out, a in
+    sp out, b in
+    alu op mul, alu out, cx in
+    reset counter
+
+0a30 mul dx ax:
+    dx out, a in
+    ax out, b in
+    alu op mul, alu out, dx in
+    reset counter
+
+0a31 mul dx bx:
+    dx out, a in
+    bx out, b in
+    alu op mul, alu out, dx in
+    reset counter
+
+0a32 mul dx cx:
+    dx out, a in
+    cx out, b in
+    alu op mul, alu out, dx in
+    reset counter
+
+0a33 mul dx dx:
+    dx out, a in
+    dx out, b in
+    alu op mul, alu out, dx in
+    reset counter
+
+0a34 mul dx bp:
+    dx out, a in
+    bp out, b in
+    alu op mul, alu out, dx in
+    reset counter
+
+0a35 mul dx sp:
+    dx out, a in
+    sp out, b in
+    alu op mul, alu out, dx in
+    reset counter
+
+0a40 mul bp ax:
+    bp out, a in
+    ax out, b in
+    alu op mul, alu out, bp in
+    reset counter
+
+0a41 mul bp bx:
+    bp out, a in
+    bx out, b in
+    alu op mul, alu out, bp in
+    reset counter
+
+0a42 mul bp cx:
+    bp out, a in
+    cx out, b in
+    alu op mul, alu out, bp in
+    reset counter
+
+0a43 mul bp dx:
+    bp out, a in
+    dx out, b in
+    alu op mul, alu out, bp in
+    reset counter
+
+0a44 mul bp bp:
+    bp out, a in
+    bp out, b in
+    alu op mul, alu out, bp in
+    reset counter
+
+0a45 mul bp sp:
+    bp out, a in
+    sp out, b in
+    alu op mul, alu out, bp in
+    reset counter
+
+0a50 mul sp ax:
+    sp out, a in
+    ax out, b in
+    alu op mul, alu out, sp in
+    reset counter
+
+0a51 mul sp bx:
+    sp out, a in
+    bx out, b in
+    alu op mul, alu out, sp in
+    reset counter
+
+0a52 mul sp cx:
+    sp out, a in
+    cx out, b in
+    alu op mul, alu out, sp in
+    reset counter
+
+0a53 mul sp dx:
+    sp out, a in
+    dx out, b in
+    alu op mul, alu out, sp in
+    reset counter
+
+0a54 mul sp bp:
+    sp out, a in
+    bp out, b in
+    alu op mul, alu out, sp in
+    reset counter
+
+0a55 mul sp sp:
+    sp out, a in
+    sp out, b in
+    alu op mul, alu out, sp in
+    reset counter
+
+00a0 mul ax num:
+    ax out, a in
+    ram out, b in, pc inc
+    alu op mul, alu out, ax in
+    reset counter
+
+00a1 mul bx num:
+    bx out, a in
+    ram out, b in, pc inc
+    alu op mul, alu out, bx in
+    reset counter
+
+00a2 mul cx num:
+    cx out, a in
+    ram out, b in, pc inc
+    alu op mul, alu out, cx in
+    reset counter
+
+00a3 mul dx num:
+    dx out, a in
+    ram out, b in, pc inc
+    alu op mul, alu out, dx in
+    reset counter
+
+00a4 mul bp num:
+    bp out, a in
+    ram out, b in, pc inc
+    alu op mul, alu out, bp in
+    reset counter
+
+00a5 mul sp num:
+    sp out, a in
+    ram out, b in, pc inc
+    alu op mul, alu out, sp in
+    reset counter
+
+00b0 mul ax add:
+    ax out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op mul, alu out, ax in
+    reset counter
+
+00b1 mul bx add:
+    bx out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op mul, alu out, bx in
+    reset counter
+
+00b2 mul cx add:
+    cx out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op mul, alu out, cx in
+    reset counter
+
+00b3 mul dx add:
+    dx out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op mul, alu out, dx in
+    reset counter
+
+00b4 mul bp add:
+    bp out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op mul, alu out, bp in
+    reset counter
+
+00b5 mul sp add:
+    sp out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op mul, alu out, sp in
+    reset counter
+
+00c0 mul add ax:
+    ax out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op mul, alu out, ram in
+    reset counter
+
+00c1 mul add bx:
+    bx out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op mul, alu out, ram in
+    reset counter
+
+00c2 mul add cx:
+    cx out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op mul, alu out, ram in
+    reset counter
+
+00c3 mul add dx:
+    dx out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op mul, alu out, ram in
+    reset counter
+
+00c4 mul add bp:
+    bp out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op mul, alu out, ram in
+    reset counter
+
+00c5 mul add sp:
+    sp out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op mul, alu out, ram in
+    reset counter
+
+0b00 mul ax [ax]:
+    ax out, a in
+    ax out, mar in
+    ram out, b in
+    alu op mul, alu out, ax in
+    reset counter
+
+0b01 mul ax [bx]:
+    ax out, a in
+    bx out, mar in
+    ram out, b in
+    alu op mul, alu out, ax in
+    reset counter
+
+0b02 mul ax [cx]:
+    ax out, a in
+    cx out, mar in
+    ram out, b in
+    alu op mul, alu out, ax in
+    reset counter
+
+0b03 mul ax [dx]:
+    ax out, a in
+    dx out, mar in
+    ram out, b in
+    alu op mul, alu out, ax in
+    reset counter
+
+0b04 mul ax [bp]:
+    ax out, a in
+    bp out, mar in
+    ram out, b in
+    alu op mul, alu out, ax in
+    reset counter
+
+0b05 mul ax [sp]:
+    ax out, a in
+    sp out, mar in
+    ram out, b in
+    alu op mul, alu out, ax in
+    reset counter
+
+0b10 mul bx [ax]:
+    bx out, a in
+    ax out, mar in
+    ram out, b in
+    alu op mul, alu out, bx in
+    reset counter
+
+0b11 mul bx [bx]:
+    bx out, a in
+    bx out, mar in
+    ram out, b in
+    alu op mul, alu out, bx in
+    reset counter
+
+0b12 mul bx [cx]:
+    bx out, a in
+    cx out, mar in
+    ram out, b in
+    alu op mul, alu out, bx in
+    reset counter
+
+0b13 mul bx [dx]:
+    bx out, a in
+    dx out, mar in
+    ram out, b in
+    alu op mul, alu out, bx in
+    reset counter
+
+0b14 mul bx [bp]:
+    bx out, a in
+    bp out, mar in
+    ram out, b in
+    alu op mul, alu out, bx in
+    reset counter
+
+0b15 mul bx [sp]:
+    bx out, a in
+    sp out, mar in
+    ram out, b in
+    alu op mul, alu out, bx in
+    reset counter
+
+0b20 mul cx [ax]:
+    cx out, a in
+    ax out, mar in
+    ram out, b in
+    alu op mul, alu out, cx in
+    reset counter
+
+0b21 mul cx [bx]:
+    cx out, a in
+    bx out, mar in
+    ram out, b in
+    alu op mul, alu out, cx in
+    reset counter
+
+0b22 mul cx [cx]:
+    cx out, a in
+    cx out, mar in
+    ram out, b in
+    alu op mul, alu out, cx in
+    reset counter
+
+0b23 mul cx [dx]:
+    cx out, a in
+    dx out, mar in
+    ram out, b in
+    alu op mul, alu out, cx in
+    reset counter
+
+0b24 mul cx [bp]:
+    cx out, a in
+    bp out, mar in
+    ram out, b in
+    alu op mul, alu out, cx in
+    reset counter
+
+0b25 mul cx [sp]:
+    cx out, a in
+    sp out, mar in
+    ram out, b in
+    alu op mul, alu out, cx in
+    reset counter
+
+0b30 mul dx [ax]:
+    dx out, a in
+    ax out, mar in
+    ram out, b in
+    alu op mul, alu out, dx in
+    reset counter
+
+0b31 mul dx [bx]:
+    dx out, a in
+    bx out, mar in
+    ram out, b in
+    alu op mul, alu out, dx in
+    reset counter
+
+0b32 mul dx [cx]:
+    dx out, a in
+    cx out, mar in
+    ram out, b in
+    alu op mul, alu out, dx in
+    reset counter
+
+0b33 mul dx [dx]:
+    dx out, a in
+    dx out, mar in
+    ram out, b in
+    alu op mul, alu out, dx in
+    reset counter
+
+0b34 mul dx [bp]:
+    dx out, a in
+    bp out, mar in
+    ram out, b in
+    alu op mul, alu out, dx in
+    reset counter
+
+0b35 mul dx [sp]:
+    dx out, a in
+    sp out, mar in
+    ram out, b in
+    alu op mul, alu out, dx in
+    reset counter
+
+0b40 mul bp [ax]:
+    bp out, a in
+    ax out, mar in
+    ram out, b in
+    alu op mul, alu out, bp in
+    reset counter
+
+0b41 mul bp [bx]:
+    bp out, a in
+    bx out, mar in
+    ram out, b in
+    alu op mul, alu out, bp in
+    reset counter
+
+0b42 mul bp [cx]:
+    bp out, a in
+    cx out, mar in
+    ram out, b in
+    alu op mul, alu out, bp in
+    reset counter
+
+0b43 mul bp [dx]:
+    bp out, a in
+    dx out, mar in
+    ram out, b in
+    alu op mul, alu out, bp in
+    reset counter
+
+0b44 mul bp [bp]:
+    bp out, a in
+    bp out, mar in
+    ram out, b in
+    alu op mul, alu out, bp in
+    reset counter
+
+0b45 mul bp [sp]:
+    bp out, a in
+    sp out, mar in
+    ram out, b in
+    alu op mul, alu out, bp in
+    reset counter
+
+0b50 mul sp [ax]:
+    sp out, a in
+    ax out, mar in
+    ram out, b in
+    alu op mul, alu out, sp in
+    reset counter
+
+0b51 mul sp [bx]:
+    sp out, a in
+    bx out, mar in
+    ram out, b in
+    alu op mul, alu out, sp in
+    reset counter
+
+0b52 mul sp [cx]:
+    sp out, a in
+    cx out, mar in
+    ram out, b in
+    alu op mul, alu out, sp in
+    reset counter
+
+0b53 mul sp [dx]:
+    sp out, a in
+    dx out, mar in
+    ram out, b in
+    alu op mul, alu out, sp in
+    reset counter
+
+0b54 mul sp [bp]:
+    sp out, a in
+    bp out, mar in
+    ram out, b in
+    alu op mul, alu out, sp in
+    reset counter
+
+0b55 mul sp [sp]:
+    sp out, a in
+    sp out, mar in
+    ram out, b in
+    alu op mul, alu out, sp in
+    reset counter
+
+0c00 mul [ax] ax:
+    ax out, mar in
+    ram out, a in
+    ax out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c01 mul [ax] bx:
+    ax out, mar in
+    ram out, a in
+    bx out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c02 mul [ax] cx:
+    ax out, mar in
+    ram out, a in
+    cx out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c03 mul [ax] dx:
+    ax out, mar in
+    ram out, a in
+    dx out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c04 mul [ax] bp:
+    ax out, mar in
+    ram out, a in
+    bp out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c05 mul [ax] sp:
+    ax out, mar in
+    ram out, a in
+    sp out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c10 mul [bx] ax:
+    bx out, mar in
+    ram out, a in
+    ax out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c11 mul [bx] bx:
+    bx out, mar in
+    ram out, a in
+    bx out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c12 mul [bx] cx:
+    bx out, mar in
+    ram out, a in
+    cx out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c13 mul [bx] dx:
+    bx out, mar in
+    ram out, a in
+    dx out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c14 mul [bx] bp:
+    bx out, mar in
+    ram out, a in
+    bp out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c15 mul [bx] sp:
+    bx out, mar in
+    ram out, a in
+    sp out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c20 mul [cx] ax:
+    cx out, mar in
+    ram out, a in
+    ax out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c21 mul [cx] bx:
+    cx out, mar in
+    ram out, a in
+    bx out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c22 mul [cx] cx:
+    cx out, mar in
+    ram out, a in
+    cx out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c23 mul [cx] dx:
+    cx out, mar in
+    ram out, a in
+    dx out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c24 mul [cx] bp:
+    cx out, mar in
+    ram out, a in
+    bp out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c25 mul [cx] sp:
+    cx out, mar in
+    ram out, a in
+    sp out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c30 mul [dx] ax:
+    dx out, mar in
+    ram out, a in
+    ax out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c31 mul [dx] bx:
+    dx out, mar in
+    ram out, a in
+    bx out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c32 mul [dx] cx:
+    dx out, mar in
+    ram out, a in
+    cx out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c33 mul [dx] dx:
+    dx out, mar in
+    ram out, a in
+    dx out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c34 mul [dx] bp:
+    dx out, mar in
+    ram out, a in
+    bp out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c35 mul [dx] sp:
+    dx out, mar in
+    ram out, a in
+    sp out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c40 mul [bp] ax:
+    bp out, mar in
+    ram out, a in
+    ax out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c41 mul [bp] bx:
+    bp out, mar in
+    ram out, a in
+    bx out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c42 mul [bp] cx:
+    bp out, mar in
+    ram out, a in
+    cx out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c43 mul [bp] dx:
+    bp out, mar in
+    ram out, a in
+    dx out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c44 mul [bp] bp:
+    bp out, mar in
+    ram out, a in
+    bp out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c45 mul [bp] sp:
+    bp out, mar in
+    ram out, a in
+    sp out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c50 mul [sp] ax:
+    sp out, mar in
+    ram out, a in
+    ax out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c51 mul [sp] bx:
+    sp out, mar in
+    ram out, a in
+    bx out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c52 mul [sp] cx:
+    sp out, mar in
+    ram out, a in
+    cx out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c53 mul [sp] dx:
+    sp out, mar in
+    ram out, a in
+    dx out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c54 mul [sp] bp:
+    sp out, mar in
+    ram out, a in
+    bp out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0c55 mul [sp] sp:
+    sp out, mar in
+    ram out, a in
+    sp out, b in
+    alu op mul, alu out, ram in
+    reset counter
+
+0d00 div ax ax:
+    ax out, a in
+    ax out, b in
+    alu op div, alu out, ax in
+    reset counter
+
+0d01 div ax bx:
+    ax out, a in
+    bx out, b in
+    alu op div, alu out, ax in
+    reset counter
+
+0d02 div ax cx:
+    ax out, a in
+    cx out, b in
+    alu op div, alu out, ax in
+    reset counter
+
+0d03 div ax dx:
+    ax out, a in
+    dx out, b in
+    alu op div, alu out, ax in
+    reset counter
+
+0d04 div ax bp:
+    ax out, a in
+    bp out, b in
+    alu op div, alu out, ax in
+    reset counter
+
+0d05 div ax sp:
+    ax out, a in
+    sp out, b in
+    alu op div, alu out, ax in
+    reset counter
+
+0d10 div bx ax:
+    bx out, a in
+    ax out, b in
+    alu op div, alu out, bx in
+    reset counter
+
+0d11 div bx bx:
+    bx out, a in
+    bx out, b in
+    alu op div, alu out, bx in
+    reset counter
+
+0d12 div bx cx:
+    bx out, a in
+    cx out, b in
+    alu op div, alu out, bx in
+    reset counter
+
+0d13 div bx dx:
+    bx out, a in
+    dx out, b in
+    alu op div, alu out, bx in
+    reset counter
+
+0d14 div bx bp:
+    bx out, a in
+    bp out, b in
+    alu op div, alu out, bx in
+    reset counter
+
+0d15 div bx sp:
+    bx out, a in
+    sp out, b in
+    alu op div, alu out, bx in
+    reset counter
+
+0d20 div cx ax:
+    cx out, a in
+    ax out, b in
+    alu op div, alu out, cx in
+    reset counter
+
+0d21 div cx bx:
+    cx out, a in
+    bx out, b in
+    alu op div, alu out, cx in
+    reset counter
+
+0d22 div cx cx:
+    cx out, a in
+    cx out, b in
+    alu op div, alu out, cx in
+    reset counter
+
+0d23 div cx dx:
+    cx out, a in
+    dx out, b in
+    alu op div, alu out, cx in
+    reset counter
+
+0d24 div cx bp:
+    cx out, a in
+    bp out, b in
+    alu op div, alu out, cx in
+    reset counter
+
+0d25 div cx sp:
+    cx out, a in
+    sp out, b in
+    alu op div, alu out, cx in
+    reset counter
+
+0d30 div dx ax:
+    dx out, a in
+    ax out, b in
+    alu op div, alu out, dx in
+    reset counter
+
+0d31 div dx bx:
+    dx out, a in
+    bx out, b in
+    alu op div, alu out, dx in
+    reset counter
+
+0d32 div dx cx:
+    dx out, a in
+    cx out, b in
+    alu op div, alu out, dx in
+    reset counter
+
+0d33 div dx dx:
+    dx out, a in
+    dx out, b in
+    alu op div, alu out, dx in
+    reset counter
+
+0d34 div dx bp:
+    dx out, a in
+    bp out, b in
+    alu op div, alu out, dx in
+    reset counter
+
+0d35 div dx sp:
+    dx out, a in
+    sp out, b in
+    alu op div, alu out, dx in
+    reset counter
+
+0d40 div bp ax:
+    bp out, a in
+    ax out, b in
+    alu op div, alu out, bp in
+    reset counter
+
+0d41 div bp bx:
+    bp out, a in
+    bx out, b in
+    alu op div, alu out, bp in
+    reset counter
+
+0d42 div bp cx:
+    bp out, a in
+    cx out, b in
+    alu op div, alu out, bp in
+    reset counter
+
+0d43 div bp dx:
+    bp out, a in
+    dx out, b in
+    alu op div, alu out, bp in
+    reset counter
+
+0d44 div bp bp:
+    bp out, a in
+    bp out, b in
+    alu op div, alu out, bp in
+    reset counter
+
+0d45 div bp sp:
+    bp out, a in
+    sp out, b in
+    alu op div, alu out, bp in
+    reset counter
+
+0d50 div sp ax:
+    sp out, a in
+    ax out, b in
+    alu op div, alu out, sp in
+    reset counter
+
+0d51 div sp bx:
+    sp out, a in
+    bx out, b in
+    alu op div, alu out, sp in
+    reset counter
+
+0d52 div sp cx:
+    sp out, a in
+    cx out, b in
+    alu op div, alu out, sp in
+    reset counter
+
+0d53 div sp dx:
+    sp out, a in
+    dx out, b in
+    alu op div, alu out, sp in
+    reset counter
+
+0d54 div sp bp:
+    sp out, a in
+    bp out, b in
+    alu op div, alu out, sp in
+    reset counter
+
+0d55 div sp sp:
+    sp out, a in
+    sp out, b in
+    alu op div, alu out, sp in
+    reset counter
+
+00d0 div ax num:
+    ax out, a in
+    ram out, b in, pc inc
+    alu op div, alu out, ax in
+    reset counter
+
+00d1 div bx num:
+    bx out, a in
+    ram out, b in, pc inc
+    alu op div, alu out, bx in
+    reset counter
+
+00d2 div cx num:
+    cx out, a in
+    ram out, b in, pc inc
+    alu op div, alu out, cx in
+    reset counter
+
+00d3 div dx num:
+    dx out, a in
+    ram out, b in, pc inc
+    alu op div, alu out, dx in
+    reset counter
+
+00d4 div bp num:
+    bp out, a in
+    ram out, b in, pc inc
+    alu op div, alu out, bp in
+    reset counter
+
+00d5 div sp num:
+    sp out, a in
+    ram out, b in, pc inc
+    alu op div, alu out, sp in
+    reset counter
+
+00e0 div ax add:
+    ax out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op div, alu out, ax in
+    reset counter
+
+00e1 div bx add:
+    bx out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op div, alu out, bx in
+    reset counter
+
+00e2 div cx add:
+    cx out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op div, alu out, cx in
+    reset counter
+
+00e3 div dx add:
+    dx out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op div, alu out, dx in
+    reset counter
+
+00e4 div bp add:
+    bp out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op div, alu out, bp in
+    reset counter
+
+00e5 div sp add:
+    sp out, a in
+    ram out, mar in
+    ram out, b in, pc inc
+    alu op div, alu out, sp in
+    reset counter
+
+00f0 div add ax:
+    ax out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op div, alu out, ram in
+    reset counter
+
+00f1 div add bx:
+    bx out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op div, alu out, ram in
+    reset counter
+
+00f2 div add cx:
+    cx out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op div, alu out, ram in
+    reset counter
+
+00f3 div add dx:
+    dx out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op div, alu out, ram in
+    reset counter
+
+00f4 div add bp:
+    bp out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op div, alu out, ram in
+    reset counter
+
+00f5 div add sp:
+    sp out, b in
+    ram out, mar in
+    ram out, a in, pc inc
+    alu op div, alu out, ram in
+    reset counter
+
+0e00 div ax [ax]:
+    ax out, a in
+    ax out, mar in
+    ram out, b in
+    alu op div, alu out, ax in
+    reset counter
+
+0e01 div ax [bx]:
+    ax out, a in
+    bx out, mar in
+    ram out, b in
+    alu op div, alu out, ax in
+    reset counter
+
+0e02 div ax [cx]:
+    ax out, a in
+    cx out, mar in
+    ram out, b in
+    alu op div, alu out, ax in
+    reset counter
+
+0e03 div ax [dx]:
+    ax out, a in
+    dx out, mar in
+    ram out, b in
+    alu op div, alu out, ax in
+    reset counter
+
+0e04 div ax [bp]:
+    ax out, a in
+    bp out, mar in
+    ram out, b in
+    alu op div, alu out, ax in
+    reset counter
+
+0e05 div ax [sp]:
+    ax out, a in
+    sp out, mar in
+    ram out, b in
+    alu op div, alu out, ax in
+    reset counter
+
+0e10 div bx [ax]:
+    bx out, a in
+    ax out, mar in
+    ram out, b in
+    alu op div, alu out, bx in
+    reset counter
+
+0e11 div bx [bx]:
+    bx out, a in
+    bx out, mar in
+    ram out, b in
+    alu op div, alu out, bx in
+    reset counter
+
+0e12 div bx [cx]:
+    bx out, a in
+    cx out, mar in
+    ram out, b in
+    alu op div, alu out, bx in
+    reset counter
+
+0e13 div bx [dx]:
+    bx out, a in
+    dx out, mar in
+    ram out, b in
+    alu op div, alu out, bx in
+    reset counter
+
+0e14 div bx [bp]:
+    bx out, a in
+    bp out, mar in
+    ram out, b in
+    alu op div, alu out, bx in
+    reset counter
+
+0e15 div bx [sp]:
+    bx out, a in
+    sp out, mar in
+    ram out, b in
+    alu op div, alu out, bx in
+    reset counter
+
+0e20 div cx [ax]:
+    cx out, a in
+    ax out, mar in
+    ram out, b in
+    alu op div, alu out, cx in
+    reset counter
+
+0e21 div cx [bx]:
+    cx out, a in
+    bx out, mar in
+    ram out, b in
+    alu op div, alu out, cx in
+    reset counter
+
+0e22 div cx [cx]:
+    cx out, a in
+    cx out, mar in
+    ram out, b in
+    alu op div, alu out, cx in
+    reset counter
+
+0e23 div cx [dx]:
+    cx out, a in
+    dx out, mar in
+    ram out, b in
+    alu op div, alu out, cx in
+    reset counter
+
+0e24 div cx [bp]:
+    cx out, a in
+    bp out, mar in
+    ram out, b in
+    alu op div, alu out, cx in
+    reset counter
+
+0e25 div cx [sp]:
+    cx out, a in
+    sp out, mar in
+    ram out, b in
+    alu op div, alu out, cx in
+    reset counter
+
+0e30 div dx [ax]:
+    dx out, a in
+    ax out, mar in
+    ram out, b in
+    alu op div, alu out, dx in
+    reset counter
+
+0e31 div dx [bx]:
+    dx out, a in
+    bx out, mar in
+    ram out, b in
+    alu op div, alu out, dx in
+    reset counter
+
+0e32 div dx [cx]:
+    dx out, a in
+    cx out, mar in
+    ram out, b in
+    alu op div, alu out, dx in
+    reset counter
+
+0e33 div dx [dx]:
+    dx out, a in
+    dx out, mar in
+    ram out, b in
+    alu op div, alu out, dx in
+    reset counter
+
+0e34 div dx [bp]:
+    dx out, a in
+    bp out, mar in
+    ram out, b in
+    alu op div, alu out, dx in
+    reset counter
+
+0e35 div dx [sp]:
+    dx out, a in
+    sp out, mar in
+    ram out, b in
+    alu op div, alu out, dx in
+    reset counter
+
+0e40 div bp [ax]:
+    bp out, a in
+    ax out, mar in
+    ram out, b in
+    alu op div, alu out, bp in
+    reset counter
+
+0e41 div bp [bx]:
+    bp out, a in
+    bx out, mar in
+    ram out, b in
+    alu op div, alu out, bp in
+    reset counter
+
+0e42 div bp [cx]:
+    bp out, a in
+    cx out, mar in
+    ram out, b in
+    alu op div, alu out, bp in
+    reset counter
+
+0e43 div bp [dx]:
+    bp out, a in
+    dx out, mar in
+    ram out, b in
+    alu op div, alu out, bp in
+    reset counter
+
+0e44 div bp [bp]:
+    bp out, a in
+    bp out, mar in
+    ram out, b in
+    alu op div, alu out, bp in
+    reset counter
+
+0e45 div bp [sp]:
+    bp out, a in
+    sp out, mar in
+    ram out, b in
+    alu op div, alu out, bp in
+    reset counter
+
+0e50 div sp [ax]:
+    sp out, a in
+    ax out, mar in
+    ram out, b in
+    alu op div, alu out, sp in
+    reset counter
+
+0e51 div sp [bx]:
+    sp out, a in
+    bx out, mar in
+    ram out, b in
+    alu op div, alu out, sp in
+    reset counter
+
+0e52 div sp [cx]:
+    sp out, a in
+    cx out, mar in
+    ram out, b in
+    alu op div, alu out, sp in
+    reset counter
+
+0e53 div sp [dx]:
+    sp out, a in
+    dx out, mar in
+    ram out, b in
+    alu op div, alu out, sp in
+    reset counter
+
+0e54 div sp [bp]:
+    sp out, a in
+    bp out, mar in
+    ram out, b in
+    alu op div, alu out, sp in
+    reset counter
+
+0e55 div sp [sp]:
+    sp out, a in
+    sp out, mar in
+    ram out, b in
+    alu op div, alu out, sp in
+    reset counter
+
+0f00 div [ax] ax:
+    ax out, mar in
+    ram out, a in
+    ax out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f01 div [ax] bx:
+    ax out, mar in
+    ram out, a in
+    bx out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f02 div [ax] cx:
+    ax out, mar in
+    ram out, a in
+    cx out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f03 div [ax] dx:
+    ax out, mar in
+    ram out, a in
+    dx out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f04 div [ax] bp:
+    ax out, mar in
+    ram out, a in
+    bp out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f05 div [ax] sp:
+    ax out, mar in
+    ram out, a in
+    sp out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f10 div [bx] ax:
+    bx out, mar in
+    ram out, a in
+    ax out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f11 div [bx] bx:
+    bx out, mar in
+    ram out, a in
+    bx out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f12 div [bx] cx:
+    bx out, mar in
+    ram out, a in
+    cx out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f13 div [bx] dx:
+    bx out, mar in
+    ram out, a in
+    dx out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f14 div [bx] bp:
+    bx out, mar in
+    ram out, a in
+    bp out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f15 div [bx] sp:
+    bx out, mar in
+    ram out, a in
+    sp out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f20 div [cx] ax:
+    cx out, mar in
+    ram out, a in
+    ax out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f21 div [cx] bx:
+    cx out, mar in
+    ram out, a in
+    bx out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f22 div [cx] cx:
+    cx out, mar in
+    ram out, a in
+    cx out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f23 div [cx] dx:
+    cx out, mar in
+    ram out, a in
+    dx out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f24 div [cx] bp:
+    cx out, mar in
+    ram out, a in
+    bp out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f25 div [cx] sp:
+    cx out, mar in
+    ram out, a in
+    sp out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f30 div [dx] ax:
+    dx out, mar in
+    ram out, a in
+    ax out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f31 div [dx] bx:
+    dx out, mar in
+    ram out, a in
+    bx out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f32 div [dx] cx:
+    dx out, mar in
+    ram out, a in
+    cx out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f33 div [dx] dx:
+    dx out, mar in
+    ram out, a in
+    dx out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f34 div [dx] bp:
+    dx out, mar in
+    ram out, a in
+    bp out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f35 div [dx] sp:
+    dx out, mar in
+    ram out, a in
+    sp out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f40 div [bp] ax:
+    bp out, mar in
+    ram out, a in
+    ax out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f41 div [bp] bx:
+    bp out, mar in
+    ram out, a in
+    bx out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f42 div [bp] cx:
+    bp out, mar in
+    ram out, a in
+    cx out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f43 div [bp] dx:
+    bp out, mar in
+    ram out, a in
+    dx out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f44 div [bp] bp:
+    bp out, mar in
+    ram out, a in
+    bp out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f45 div [bp] sp:
+    bp out, mar in
+    ram out, a in
+    sp out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f50 div [sp] ax:
+    sp out, mar in
+    ram out, a in
+    ax out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f51 div [sp] bx:
+    sp out, mar in
+    ram out, a in
+    bx out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f52 div [sp] cx:
+    sp out, mar in
+    ram out, a in
+    cx out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f53 div [sp] dx:
+    sp out, mar in
+    ram out, a in
+    dx out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f54 div [sp] bp:
+    sp out, mar in
+    ram out, a in
+    bp out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+0f55 div [sp] sp:
+    sp out, mar in
+    ram out, a in
+    sp out, b in
+    alu op div, alu out, ram in
     reset counter
 
 
