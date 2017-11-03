@@ -123,19 +123,19 @@ for line in code:
         compiledCode.append("ffff")
     elif line[0]=="cmp":
         if line[1] in regs and line[2] in regs:
-            compiledcode.append("10"+regnums[line[1]]+regnums[line[2]])
+            compiledCode.append("10"+regnums[line[1]]+regnums[line[2]])
         elif line[1] in regs and line[2] not in regs and line[2][0] not in ("[","-"):
-            compiledcode.append("106"+regnums[line[1]])
+            compiledCode.append("106"+regnums[line[1]])
             compiledCode.append(hex(int(line[2],0))[2:])
         elif line[1] in regs and line[2][0] in ("[","-"):
-            compiledcode.append("107"+regnums[line[1]])
+            compiledCode.append("107"+regnums[line[1]])
             compiledCode.append(hex(int(line[2][1:-1] if line[2][0]=="[" else var[line[2]],0))[2:])
         elif line[1][0] in ("[","-") and line[2] not in regs and line[2][0] not in ("[","-"):
-            compiledcode.append("1076")
+            compiledCode.append("1076")
             compiledCode.append(hex(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
             compiledCode.append(hex(int(line[2],0))[2:])
         elif line[1][0] in ("[","-") and line[2][0] in ("[","-"):
-            compiledcode.append("1077")
+            compiledCode.append("1077")
             compiledCode.append(hex(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
             compiledCode.append(hex(int(line[2][1:-1] if line[2][0]=="[" else var[line[2]],0))[2:])
     elif line[0] in jumps:

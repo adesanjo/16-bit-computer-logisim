@@ -4478,7 +4478,7 @@ ffff halt:
     ram out, mar in
     ram out, a in
     pc out, mar in, pc inc
-    ram out b in
+    ram out, b in
     reset counter
 
 1077 cmp adda addb:
@@ -4489,7 +4489,7 @@ ffff halt:
     pc out, mar in, pc inc
     nop
     ram out, mar in
-    ram out b in
+    ram out, b in
     reset counter
 
 1080 jmp lbl:
