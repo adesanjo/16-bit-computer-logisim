@@ -53,6 +53,24 @@ ffff        halt                          Halts execution. Execution can be resu
 0exx        div reg regadd   None
 0fxx        div regadd reg   None
 
+10xx        cmp rega regb    None         Compares registers rega and regb
+106x        cmp reg num      num          Compares register reg to num
+107x        cmp reg add      add          Compares register reg to value at address add
+1076        cmp add num      add, num     Compares value at address add and num
+1077        cmp adda addb    adda, addb   Compares value at address adda and value at address addb
+
+1080        jmp lbl          lbl          Jumps to label lbl
+1081        ja lbl           lbl          Jumps to label lbl if a > b
+1082        jna lbl          lbl          Jumps to label lbl if a <= b
+1083        je lbl           lbl          Jumps to label lbl if a == b
+1084        jne lbl          lbl          Jumps to label lbl if a != b
+1085        jb lbl           lbl          Jumps to label lbl if a < b
+1086        jnb lbl          lbl          Jumps to label lbl if a >= b
+1087        jg lbl           lbl          Jumps to label lbl if a > b (signed)
+1088        jng lbl          lbl          Jumps to label lbl if a <= b (signed)
+1089        jl lbl           lbl          Jumps to label lbl if a < b (signed)
+108a        jnl lbl          lbl          Jumps to label lbl if a >= b (signed)
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Register numbers:
@@ -4196,4 +4214,347 @@ ffff halt:
     alu op div, alu out, ram in
     reset counter
 
+1000 cmp ax ax:
+    ax out, a in
+    ax out, b in
+    reset counter
+
+1001 cmp ax bx:
+    ax out, a in
+    bx out, b in
+    reset counter
+
+1002 cmp ax cx:
+    ax out, a in
+    cx out, b in
+    reset counter
+
+1003 cmp ax dx:
+    ax out, a in
+    dx out, b in
+    reset counter
+
+1004 cmp ax bp:
+    ax out, a in
+    bp out, b in
+    reset counter
+
+1005 cmp ax sp:
+    ax out, a in
+    sp out, b in
+    reset counter
+
+1010 cmp bx ax:
+    bx out, a in
+    ax out, b in
+    reset counter
+
+1011 cmp bx bx:
+    bx out, a in
+    bx out, b in
+    reset counter
+
+1012 cmp bx cx:
+    bx out, a in
+    cx out, b in
+    reset counter
+
+1013 cmp bx dx:
+    bx out, a in
+    dx out, b in
+    reset counter
+
+1014 cmp bx bp:
+    bx out, a in
+    bp out, b in
+    reset counter
+
+1015 cmp bx sp:
+    bx out, a in
+    sp out, b in
+    reset counter
+
+1020 cmp cx ax:
+    cx out, a in
+    ax out, b in
+    reset counter
+
+1021 cmp cx bx:
+    cx out, a in
+    bx out, b in
+    reset counter
+
+1022 cmp cx cx:
+    cx out, a in
+    cx out, b in
+    reset counter
+
+1023 cmp cx dx:
+    cx out, a in
+    dx out, b in
+    reset counter
+
+1024 cmp cx bp:
+    cx out, a in
+    bp out, b in
+    reset counter
+
+1025 cmp cx sp:
+    cx out, a in
+    sp out, b in
+    reset counter
+
+1030 cmp dx ax:
+    dx out, a in
+    ax out, b in
+    reset counter
+
+1031 cmp dx bx:
+    dx out, a in
+    bx out, b in
+    reset counter
+
+1032 cmp dx cx:
+    dx out, a in
+    cx out, b in
+    reset counter
+
+1033 cmp dx dx:
+    dx out, a in
+    dx out, b in
+    reset counter
+
+1034 cmp dx bp:
+    dx out, a in
+    bp out, b in
+    reset counter
+
+1035 cmp dx sp:
+    dx out, a in
+    sp out, b in
+    reset counter
+
+1040 cmp bp ax:
+    bp out, a in
+    ax out, b in
+    reset counter
+
+1041 cmp bp bx:
+    bp out, a in
+    bx out, b in
+    reset counter
+
+1042 cmp bp cx:
+    bp out, a in
+    cx out, b in
+    reset counter
+
+1043 cmp bp dx:
+    bp out, a in
+    dx out, b in
+    reset counter
+
+1044 cmp bp bp:
+    bp out, a in
+    bp out, b in
+    reset counter
+
+1045 cmp bp sp:
+    bp out, a in
+    sp out, b in
+    reset counter
+
+1050 cmp sp ax:
+    sp out, a in
+    ax out, b in
+    reset counter
+
+1051 cmp sp bx:
+    sp out, a in
+    bx out, b in
+    reset counter
+
+1052 cmp sp cx:
+    sp out, a in
+    cx out, b in
+    reset counter
+
+1053 cmp sp dx:
+    sp out, a in
+    dx out, b in
+    reset counter
+
+1054 cmp sp bp:
+    sp out, a in
+    bp out, b in
+    reset counter
+
+1055 cmp sp sp:
+    sp out, a in
+    sp out, b in
+    reset counter
+
+1060 cmp ax num:
+    pc out, mar in, pc inc
+    ax out, a in
+    ram out, b in
+    reset counter
+
+1061 cmp bx num:
+    pc out, mar in, pc inc
+    bx out, a in
+    ram out, b in
+    reset counter
+
+1062 cmp cx num:
+    pc out, mar in, pc inc
+    cx out, a in
+    ram out, b in
+    reset counter
+
+1063 cmp dx num:
+    pc out, mar in, pc inc
+    dx out, a in
+    ram out, b in
+    reset counter
+
+1064 cmp bp num:
+    pc out, mar in, pc inc
+    bp out, a in
+    ram out, b in
+    reset counter
+
+1065 cmp sp num:
+    pc out, mar in, pc inc
+    sp out, a in
+    ram out, b in
+    reset counter
+
+1070 cmp ax add:
+    pc out, mar in, pc inc
+    ax out, a in
+    ram out, mar in
+    ram out, b in
+    reset counter
+
+1071 cmp bx add:
+    pc out, mar in, pc inc
+    bx out, a in
+    ram out, mar in
+    ram out, b in
+    reset counter
+
+1072 cmp cx add:
+    pc out, mar in, pc inc
+    cx out, a in
+    ram out, mar in
+    ram out, b in
+    reset counter
+
+1073 cmp dx add:
+    pc out, mar in, pc inc
+    dx out, a in
+    ram out, mar in
+    ram out, b in
+    reset counter
+
+1074 cmp bp add:
+    pc out, mar in, pc inc
+    bp out, a in
+    ram out, mar in
+    ram out, b in
+    reset counter
+
+1075 cmp sp add:
+    pc out, mar in, pc inc
+    sp out, a in
+    ram out, mar in
+    ram out, b in
+    reset counter
+
+1076 cmp add num:
+    pc out, mar in, pc inc
+    nop
+    ram out, mar in
+    ram out, a in
+    pc out, mar in, pc inc
+    ram out b in
+    reset counter
+
+1077 cmp adda addb:
+    pc out, mar in, pc inc
+    nop
+    ram out, mar in
+    ram out, a in
+    pc out, mar in, pc inc
+    nop
+    ram out, mar in
+    ram out b in
+    reset counter
+
+1080 jmp lbl:
+    pc out, mar in, pc inc
+    nop
+    ram out, pc set
+    reset counter
+
+1081 ja lbl:
+    pc out, mar in, pc inc
+    nop
+    ram out, ja
+    reset counter
+
+1082 jna lbl:
+    pc out, mar in, pc inc
+    nop
+    ram out, jna
+    reset counter
+
+1083 je lbl:
+    pc out, mar in, pc inc
+    nop
+    ram out, je
+    reset counter
+
+1084 jne lbl:
+    pc out, mar in, pc inc
+    nop
+    ram out, jne
+    reset counter
+
+1085 jb lbl:
+    pc out, mar in, pc inc
+    nop
+    ram out, jb
+    reset counter
+
+1086 jnb lbl:
+    pc out, mar in, pc inc
+    nop
+    ram out, jnb
+    reset counter
+
+1087 jg lbl:
+    pc out, mar in, pc inc
+    nop
+    ram out, jg
+    reset counter
+
+1088 jng lbl:
+    pc out, mar in, pc inc
+    nop
+    ram out, jng
+    reset counter
+
+1089 jl lbl:
+    pc out, mar in, pc inc
+    nop
+    ram out, jl
+    reset counter
+
+108a jnl lbl:
+    pc out, mar in, pc inc
+    nop
+    ram out, jnl
+    reset counter
 
