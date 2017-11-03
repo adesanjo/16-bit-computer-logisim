@@ -7,13 +7,13 @@ Opcodes  |  Instructions  |  Operands  |  Description
 01xx        mov regd regs    None         Copies value of register regs to register regd. xx = regd number + regs number. this instruction 
                                           For example: mov bx dx -> xx = 13, because bx would be 1 and dx would be 3
 
-002x        mov reg num      num          Copies value num to register reg. x = register number.
+001x        mov reg num      num          Copies value num to register reg. x = register number.
                                           For example: mov bx 32 -> x = 1
 
-003x        mov reg add      add          Copies value at address add to register reg. x = register number.
+002x        mov reg add      add          Copies value at address add to register reg. x = register number.
                                           For example: mov si [32] -> x = 6
 
-004x        mov add reg      add          Copies value of register reg to address add. x = register number.
+003x        mov add reg      add          Copies value of register reg to address add. x = register number.
                                           For example: mov [32] bx -> x = 1
 
 02xx        mov reg regadd   None         Copies value at address in register regadd to register reg. xx = reg number + regadd number.
@@ -237,86 +237,86 @@ Micro Code:
     sp out, sp in
     reset counter
 
-0020 mov ax num:
+0010 mov ax num:
     ram out, ax in, pc inc
     reset counter
 
-0021 mov bx num:
+0011 mov bx num:
     ram out, bx in, pc inc
     reset counter
 
-0022 mov cx num:
+0012 mov cx num:
     ram out, cx in, pc inc
     reset counter
 
-0023 mov dx num:
+0013 mov dx num:
     ram out, dx in, pc inc
     reset counter
 
-0024 mov bp num:
+0014 mov bp num:
     ram out, bp in, pc inc
     reset counter
 
-0025 mov sp num:
+0015 mov sp num:
     ram out, sp in, pc inc
     reset counter
 
-0030 mov ax add:
+0020 mov ax add:
     ram out, mar in, pc inc
     ram out, ax in
     reset counter
 
-0031 mov bx add:
+0021 mov bx add:
     ram out, mar in, pc inc
     ram out, bx in
     reset counter
 
-0032 mov cx add:
+0022 mov cx add:
     ram out, mar in, pc inc
     ram out, cx in
     reset counter
 
-0033 mov dx add:
+0023 mov dx add:
     ram out, mar in, pc inc
     ram out, dx in
     reset counter
 
-0034 mov bp add:
+0024 mov bp add:
     ram out, mar in, pc inc
     ram out, bp in
     reset counter
 
-0035 mov sp add:
+0025 mov sp add:
     ram out, mar in, pc inc
     ram out, sp in
     reset counter
 
-0040 mov add ax:
+0030 mov add ax:
     ram out, mar in, pc inc
     ax out, ram in
     reset counter
 
-0041 mov add bx:
+0031 mov add bx:
     ram out, mar in, pc inc
     bx out, ram in
     reset counter
 
-0042 mov add cx:
+0032 mov add cx:
     ram out, mar in, pc inc
     cx out, ram in
     reset counter
 
-0043 mov add dx:
+0033 mov add dx:
     ram out, mar in, pc inc
     dx out, ram in
     reset counter
 
-0044 mov add bp:
+0034 mov add bp:
     ram out, mar in, pc inc
     bp out, ram in
     reset counter
 
-0045 mov add sp:
+0035 mov add sp:
     ram out, mar in, pc inc
     sp out, ram in
     reset counter
