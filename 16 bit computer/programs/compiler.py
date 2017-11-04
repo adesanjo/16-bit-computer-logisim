@@ -34,11 +34,11 @@ for i,line in enumerate(code):
             words+=1
         if line[1] not in regs and line[2] not in regs:
             words+=1
-    elif line[0] in ("inc","dec"):
+    elif line[0] in ("out","inc","dec"):
         words+=1
         if line[1] not in regs:
             words+=1
-    elif line[0] in ("out","halt","nop"):
+    elif line[0] in ("halt","nop"):
         words+=1
     elif line[0] in jumps:
         words+=2
@@ -128,7 +128,9 @@ for line in code:
                 compiledCode.append("00f"+regnums[line[1]])
             compiledCode.append(hex(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
         elif line[1][0] in ("[","-") and line[2] not in regs and line[2][0] not in ("[","-"):
-            if line[0]=="add":
+            if line[0]=="mov":
+                compiledCode.append("0016")
+            elif line[0]=="add":
                 compiledCode.append("0046")
             elif line[0]=="sub":
                 compiledCode.append("0076")
@@ -138,6 +140,19 @@ for line in code:
                 compiledCode.append("00d6")
             compiledCode.append(hex(int(line[2],0))[2:])
             compiledCode.append(hex(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
+        elif line[1][0] in ("[","-") and line[2][0] in ("[","-"):
+            if line[0]=="mov":
+                compiledCode.append("0018")
+            elif line[0]=="add":
+                compiledCode.append("0048")
+            elif line[0]=="sub":
+                compiledCode.append("0078")
+            elif line[0]=="mul":
+                compiledCode.append("00a8")
+            elif line[0]=="div":
+                compiledCode.append("00d8")
+            compiledCode.append(hex(int(line[2][1:-1] if line[2][0]=="[" else var[line[2]],0))[2:])
+            compiledCode.append(hex(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
     elif line[0] in ("inc","dec"):
         if line[1] in regs:
             compiledCode.append(("046" if line[0]=="inc" else "076")+regnums[line[1]])
@@ -145,7 +160,14 @@ for line in code:
             compiledCode.append("0047" if line[0]=="inc" else "0077")
             compiledCode.append(hex(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
     elif line[0]=="out":
-        compiledCode.append("fff"+regnums[line[1]])
+        if line[1] in regs:
+            compiledCode.append(("fff")+regnums[line[1]])
+        elif line[1][0] in ("[","-"):
+            compiledCode.append("fff6")
+            compiledCode.append(hex(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
+        elif  line[1] not in regs and line[1][0] not in ("[","-"):
+            compiledCode.append("fff7")
+            compiledCode.append(hex(int(line[1],0))[2:])
     elif line[0]=="halt":
         compiledCode.append("ffff")
     elif line[0]=="cmp":

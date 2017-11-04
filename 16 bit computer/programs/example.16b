@@ -1,17 +1,16 @@
-mov ax 1
-mov bx -var
-mov -count bx
-mov cx 0
-mov -var cx
+mov -tot 1
+mov -count -var
+mov -var 0
 :loop
 cmp -count -var
 jng :end
 
-mul ax -count
+mul -tot -count
 dec -count
 
 jmp :loop
 :end
-out ax
+out -tot
 -var 8
 -count 0
+-tot 0
