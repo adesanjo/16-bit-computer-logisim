@@ -1,4 +1,29 @@
-*a 10
-*b -255
-mul *a *b
-out *a
+jmp :main
+
+:fact
+enter
+mov bx bp
+inc bx
+mov bx [bx]
+cmp bx 1
+ja :notZero
+
+mov ax 0
+leave
+ret
+
+:notZero
+dec bx
+push bx
+call :fact
+pop bx
+inc bx
+mul ax bx
+leave
+ret
+
+:main
+push 5
+call :fact
+inc sp
+out ax

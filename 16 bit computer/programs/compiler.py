@@ -74,26 +74,26 @@ for line in code:
                 compiledCode.append("0d"+regnums[line[1]]+regnums[line[2]])
         elif line[1] in regs and line[2][0]=="[" and line[2][1:-1] in regs:
             if line[0]=="mov":
-                compiledCode.append("02"+regnums[line[1][1:-1]]+regnums[line[2]])
+                compiledCode.append("02"+regnums[line[1]]+regnums[line[2][1:-1]])
             elif line[0]=="add":
-                compiledCode.append("05"+regnums[line[1][1:-1]]+regnums[line[2]])
+                compiledCode.append("05"+regnums[line[1]]+regnums[line[2][1:-1]])
             elif line[0]=="sub":
-                compiledCode.append("08"+regnums[line[1][1:-1]]+regnums[line[2]])
+                compiledCode.append("08"+regnums[line[1]]+regnums[line[2][1:-1]])
             elif line[0]=="mul":
-                compiledCode.append("0b"+regnums[line[1][1:-1]]+regnums[line[2]])
+                compiledCode.append("0b"+regnums[line[1]]+regnums[line[2][1:-1]])
             elif line[0]=="div":
-                compiledCode.append("0e"+regnums[line[1][1:-1]]+regnums[line[2]])
+                compiledCode.append("0e"+regnums[line[1]]+regnums[line[2][1:-1]])
         elif line[1][0]=="[" and line[1][1:-1] in regs and line[2] in regs:
             if line[0]=="mov":
-                compiledCode.append("03"+regnums[line[1]]+regnums[line[2][1:-1]])
+                compiledCode.append("03"+regnums[line[1][1:-1]]+regnums[line[2]])
             elif line[0]=="add":
-                compiledCode.append("06"+regnums[line[1]]+regnums[line[2][1:-1]])
+                compiledCode.append("06"+regnums[line[1][1:-1]]+regnums[line[2]])
             elif line[0]=="sub":
-                compiledCode.append("09"+regnums[line[1]]+regnums[line[2][1:-1]])
+                compiledCode.append("09"+regnums[line[1][1:-1]]+regnums[line[2]])
             elif line[0]=="mul":
-                compiledCode.append("0c"+regnums[line[1]]+regnums[line[2][1:-1]])
+                compiledCode.append("0c"+regnums[line[1][1:-1]]+regnums[line[2]])
             elif line[0]=="div":
-                compiledCode.append("0f"+regnums[line[1]]+regnums[line[2][1:-1]])
+                compiledCode.append("0f"+regnums[line[1][1:-1]]+regnums[line[2]])
         elif line[1] in regs and line[2] not in regs and line[2][0] not in ("[","*"):
             if line[0]=="mov":
                 compiledCode.append("001"+regnums[line[1]])
