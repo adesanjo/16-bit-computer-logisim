@@ -33,9 +33,9 @@ for i,line in enumerate(code):
         labels[line[0]]=hexadec(wordsList[-1])[2:]
     elif line[0] in ("mov","add","sub","mul","div","cmp"):
         words+=1
-        if line[1] not in regs or line[2] not in regs:
+        if (line[1] not in regs and line[1][1:-1] not in regs) or (line[2] not in regs and line[2][1:-1] not in regs):
             words+=1
-        if line[1] not in regs and line[2] not in regs:
+        if (line[1] not in regs and line[1][1:-1] not in regs) and (line[2] not in regs and line[2][1:-1] not in regs):
             words+=1
     elif line[0] in ("out","inc","dec","push","pop"):
         words+=1

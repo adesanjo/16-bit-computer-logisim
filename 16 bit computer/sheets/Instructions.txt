@@ -4860,8 +4860,9 @@ ffff halt:
     reset counter
 
 0668 call lbl:
-    sp out, mar in, pc inc
-    pc out, ram in
+    sp out, mar in
+    pc out, a in
+    alu op inc, alu out, ram in
     sp out, a in
     alu op dec, alu out, sp in
     pc out, mar in

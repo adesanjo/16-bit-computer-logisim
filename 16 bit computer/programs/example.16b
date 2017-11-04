@@ -3,12 +3,12 @@ jmp :main
 :fact
 enter
 mov bx bp
-inc bx
+add bx 2
 mov bx [bx]
 cmp bx 1
 ja :notZero
 
-mov ax 0
+mov ax 1
 leave
 ret
 
