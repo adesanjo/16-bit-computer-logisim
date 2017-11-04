@@ -134,6 +134,12 @@ for line in code:
                 compiledCode.append("00d6")
             compiledCode.append(hex(int(line[2],0))[2:])
             compiledCode.append(hex(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
+    elif line[0] in ("inc","dec"):
+        if line[1] in regs:
+            compiledCode.append(("046" if line[0]=="inc" else "076")+regnums[line[1]])
+        elif line[1][0] in ("[","-"):
+            compiledCode.append("0047" if line[0]=="inc" else "0077")
+            compiledCode.append(hex(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
     elif line[0]=="out":
         compiledCode.append("fff"+regnums[line[1]])
     elif line[0]=="halt":

@@ -27,6 +27,9 @@ ffff        halt                          Halts execution. Execution can be resu
 06xx        add regadd reg   None
 0046        add add num      num, add
 
+046x        inc reg          None
+0047        inc add          add
+
             sub dest src                  Subtracts values of dest and src and stores result in dest
 
 07xx        sub regd regs    None
@@ -36,6 +39,9 @@ ffff        halt                          Halts execution. Execution can be resu
 08xx        sub reg regadd   None
 09xx        sub regadd reg   None
 0076        sub add num      num, add
+
+076x        dec reg          None
+0077        dec add          add
 
             mul dest src                  Multiplies values of dest and src and stores result in dest
 
@@ -1654,6 +1660,44 @@ ffff halt:
     alu op add, alu out, ram in
     reset counter
 
+0460 inc ax:
+    ax out, a in
+    alu op inc, alu out, ax in
+    reset counter
+
+0461 inc bx:
+    bx out, a in
+    alu op inc, alu out, bx in
+    reset counter
+
+0462 inc cx:
+    cx out, a in
+    alu op inc, alu out, cx in
+    reset counter
+
+0463 inc dx:
+    dx out, a in
+    alu op inc, alu out, dx in
+    reset counter
+
+0464 inc bp:
+    bp out, a in
+    alu op inc, alu out, bp in
+    reset counter
+
+0465 inc sp:
+    sp out, a in
+    alu op inc, alu out, sp in
+    reset counter
+
+0047 inc add:
+    pc out, mar in
+    pc inc
+    ram out, mar in
+    ram out, a in
+    alu op inc, alu out, ram in
+    reset counter
+
 0700 sub ax ax:
     ax out, a in
     ax out, b in
@@ -2520,6 +2564,44 @@ ffff halt:
     ram out, mar in
     ram out, a in
     alu op sub, alu out, ram in
+    reset counter
+
+0760 dec ax:
+    ax out, a in
+    alu op dec, alu out, ax in
+    reset counter
+
+0761 dec bx:
+    bx out, a in
+    alu op dec, alu out, bx in
+    reset counter
+
+0762 dec cx:
+    cx out, a in
+    alu op dec, alu out, cx in
+    reset counter
+
+0763 dec dx:
+    dx out, a in
+    alu op dec, alu out, dx in
+    reset counter
+
+0764 dec bp:
+    bp out, a in
+    alu op dec, alu out, bp in
+    reset counter
+
+0765 dec sp:
+    sp out, a in
+    alu op dec, alu out, sp in
+    reset counter
+
+0077 dec add:
+    pc out, mar in
+    pc inc
+    ram out, mar in
+    ram out, a in
+    alu op dec, alu out, ram in
     reset counter
 
 0a00 mul ax ax:
