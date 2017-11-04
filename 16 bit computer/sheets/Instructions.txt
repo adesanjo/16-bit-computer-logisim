@@ -25,6 +25,7 @@ ffff        halt                          Halts execution. Execution can be resu
 006x        add add reg      add
 05xx        add reg regadd   None
 06xx        add regadd reg   None
+0046        add add num      num, add
 
             sub dest src                  Subtracts values of dest and src and stores result in dest
 
@@ -34,6 +35,7 @@ ffff        halt                          Halts execution. Execution can be resu
 009x        sub add reg      add
 08xx        sub reg regadd   None
 09xx        sub regadd reg   None
+0076        sub add num      num, add
 
             mul dest src                  Multiplies values of dest and src and stores result in dest
 
@@ -43,6 +45,7 @@ ffff        halt                          Halts execution. Execution can be resu
 00cx        mul add reg      add
 0bxx        mul reg regadd   None
 0cxx        mul regadd reg   None
+00a6        mul add num      num, add
 
             div dest src                  Divides values of dest and src and stores result in dest
 
@@ -52,6 +55,7 @@ ffff        halt                          Halts execution. Execution can be resu
 00fx        div add reg      add
 0exx        div reg regadd   None
 0fxx        div regadd reg   None
+00d6        div add num      num, add
 
 10xx        cmp rega regb    None         Compares registers rega and regb
 106x        cmp reg num      num          Compares register reg to num
@@ -1640,6 +1644,16 @@ ffff halt:
     alu op add, alu out, ram in
     reset counter
 
+0046 add add num:
+    pc out, mar in
+    ram out, b in, pc inc
+    pc out, mar in
+    pc inc
+    ram out, mar in
+    ram out, a in
+    alu op add, alu out, ram in
+    reset counter
+
 0700 sub ax ax:
     ax out, a in
     ax out, b in
@@ -2495,6 +2509,16 @@ ffff halt:
     sp out, mar in
     ram out, a in
     sp out, b in
+    alu op sub, alu out, ram in
+    reset counter
+
+0076 sub add num:
+    pc out, mar in
+    ram out, b in, pc inc
+    pc out, mar in
+    pc inc
+    ram out, mar in
+    ram out, a in
     alu op sub, alu out, ram in
     reset counter
 
@@ -3356,6 +3380,16 @@ ffff halt:
     alu op mul, alu out, ram in
     reset counter
 
+00a6 mul add num:
+    pc out, mar in
+    ram out, b in, pc inc
+    pc out, mar in
+    pc inc
+    ram out, mar in
+    ram out, a in
+    alu op mul, alu out, ram in
+    reset counter
+
 0d00 div ax ax:
     ax out, a in
     ax out, b in
@@ -4211,6 +4245,16 @@ ffff halt:
     sp out, mar in
     ram out, a in
     sp out, b in
+    alu op div, alu out, ram in
+    reset counter
+
+00d6 div add num:
+    pc out, mar in
+    ram out, b in, pc inc
+    pc out, mar in
+    pc inc
+    ram out, mar in
+    ram out, a in
     alu op div, alu out, ram in
     reset counter
 

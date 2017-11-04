@@ -1,7 +1,6 @@
 mov ax 1
 mov bx -var
 mov -count bx
-mov bx 1
 mov cx 0
 mov -var cx
 :loop
@@ -9,7 +8,7 @@ cmp -count -var
 jng :end
 
 mul ax -count
-sub -count bx
+sub -count 1
 
 jmp :loop
 :end

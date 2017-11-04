@@ -123,6 +123,17 @@ for line in code:
             elif line[0]=="div":
                 compiledCode.append("00f"+regnums[line[1]])
             compiledCode.append(hex(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
+        elif line[1][0] in ("[","-") and line[2] not in regs and line[2][0] not in ("[","-"):
+            if line[0]=="add":
+                compiledCode.append("0046")
+            elif line[0]=="sub":
+                compiledCode.append("0076")
+            elif line[0]=="mul":
+                compiledCode.append("00a6")
+            elif line[0]=="div":
+                compiledCode.append("00d6")
+            compiledCode.append(hex(int(line[2],0))[2:])
+            compiledCode.append(hex(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
     elif line[0]=="out":
         compiledCode.append("fff"+regnums[line[1]])
     elif line[0]=="halt":
