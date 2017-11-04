@@ -23,7 +23,9 @@ leave
 ret
 
 :main
-push 5
+push *num
 call :fact
 inc sp
 out ax
+
+*num 8
