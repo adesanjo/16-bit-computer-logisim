@@ -51,7 +51,9 @@ for i,v in enumerate(var.keys()):
 for line in code:
     if line[0][0] in("-",":"):
         continue
-    if line[0] in ("mov","add","sub","mul","div"):
+    if line[0]=="nop":
+        compiledCode.append("0")
+    elif line[0] in ("mov","add","sub","mul","div"):
         if line[1] in regs and line[2] in regs:
             if line[0]=="mov":
                 compiledCode.append("01"+regnums[line[1]]+regnums[line[2]])
