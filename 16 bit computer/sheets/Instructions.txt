@@ -4873,9 +4873,9 @@ ffff halt:
 0669 enter:
     sp out, mar in
     bp out, ram in
+    sp out, bp in
     sp out, a in
     alu op dec, alu out, sp in
-    sp out, bp in
     reset counter
 
 0770 pop ax:
@@ -4940,9 +4940,9 @@ ffff halt:
     reset counter
 
 0779 leave:
-    bp out, sp in
     sp out, a in
     alu op inc, alu out, sp in
+    bp out, sp in
     sp out, mar in
     ram out, bp in
     reset counter
