@@ -1,8 +1,17 @@
-mov ax 0
-mov bx 5
+mov ax 1
+mov bx -var
+mov -count bx
+mov bx 1
+mov -var 0
 :loop
-add ax 10
-sub bx 1
-cmp bx 0
-ja :loop
+cmp -count -var
+jng :end
+
+mul ax -count
+sub -count bx
+
+jmp :loop
+:end
 out ax
+-var 3
+-count 0

@@ -28,12 +28,16 @@ for i,line in enumerate(code):
         var[line[0]]=i
     elif line[0][0]==":":
         labels[line[0]]=hex(wordsList[-1])[2:]
-    elif line[0] in ("mov","add","sub","mul","div"):
+    elif line[0] in ("mov","add","sub","mul","div","cmp"):
         words+=1
         if line[1] not in regs or line[2] not in regs:
             words+=1
+        if line[1] not in regs and line[2] not in regs:
+            words+=1
     elif line[0] in ("out","halt","nop"):
         words+=1
+    elif line[0] in jumps:
+        words+=2
     wordsList.append(wordsList[-1]+words)
 
 compiledCode=[]
