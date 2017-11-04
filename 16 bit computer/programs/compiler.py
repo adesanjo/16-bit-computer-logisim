@@ -21,9 +21,9 @@ var={}
 labels={}
 
 code=code.splitlines()
-code=[line.strip().split() for line in code if len(line.strip())>0]
+code=[line.strip().split() for line in code if len(line.strip())>0 and line.strip()[0]!="#"]
 
-wordsList=[0]
+wordsList=[4]
 
 for i,line in enumerate(code):
     words=0
@@ -37,17 +37,17 @@ for i,line in enumerate(code):
             words+=1
         if line[1] not in regs and line[2] not in regs:
             words+=1
-    elif line[0] in ("out","inc","dec"):
+    elif line[0] in ("out","inc","dec","push","pop"):
         words+=1
         if line[1] not in regs:
             words+=1
-    elif line[0] in ("halt","nop"):
+    elif line[0] in ("halt","nop","enter","leave","ret"):
         words+=1
-    elif line[0] in jumps:
+    elif line[0] in jumps+["call"]:
         words+=2
     wordsList.append(wordsList[-1]+words)
 
-compiledCode=[]
+compiledCode=["0014","ffff","0015","ffff"]
 compiledVar=[]
 words=wordsList[-1]
 
@@ -193,6 +193,20 @@ for line in code:
     elif line[0] in jumps:
         compiledCode.append("108"+hexadec(jumps.index(line[0]))[2:])
         compiledCode.append(labels[line[1]])
+    elif line[0] in ("push","pop"):
+        if line[1] in regs:
+            compiledCode.append(("066" if line[0]=="push" else "077")+regnums[line[1]])
+        elif line[1][0] in (":","*"):
+            compiledCode.append("0666" if line[0]=="push" else "0776")
+            compiledCode.append(hexadec(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
+        elif line[0]=="push" and line[1] not in regs and line[1][0] not in (":","*"):
+            compiledCode.append("0667")
+            compiledCode.append(hexadec(int(line[1],0))[2:])
+    elif line[0]=="call":
+        compiledCode.append("0668")
+        compiledCode.append(labels[line[1]])
+    elif line[0] in ("enter","leave","ret"):
+        compiledCode.append("0669" if line[0]=="enter" else "0778" if line[0]=="ret" else "0779")
 
 file=open(sys.argv[1].replace(".16b",".c16b"),"w")
 file.write("v2.0 raw\n"+" ".join(compiledCode+compiledVar))

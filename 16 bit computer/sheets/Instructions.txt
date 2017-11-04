@@ -89,6 +89,21 @@ ffff        halt                          Halts execution. Execution can be resu
 1089        jl lbl           lbl          Jumps to label lbl if a < b (signed)
 108a        jnl lbl          lbl          Jumps to label lbl if a >= b (signed)
 
+066x        push reg         None
+0666        push add         add
+0667        push num         num
+
+0668        call lbl         None
+
+0669        enter            None
+
+077x        pop reg          None
+0776        pop add          add
+
+0778        ret              None
+
+0779        leave            None
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Register numbers:
@@ -4707,7 +4722,6 @@ ffff halt:
 
 1080 jmp lbl:
     pc out, mar in
-    pc inc
     ram out, pc set
     ram out
     reset counter
@@ -4780,5 +4794,155 @@ ffff halt:
     pc inc
     ram out, jnl
     ram out
+    reset counter
+
+0660 push ax:
+    sp out, mar in
+    ax out, ram in
+    sp out, a in
+    alu op dec, alu out, sp in
+    reset counter
+
+0661 push bx:
+    sp out, mar in
+    bx out, ram in
+    sp out, a in
+    alu op dec, alu out, sp in
+    reset counter
+
+0662 push cx:
+    sp out, mar in
+    cx out, ram in
+    sp out, a in
+    alu op dec, alu out, sp in
+    reset counter
+
+0663 push dx:
+    sp out, mar in
+    dx out, ram in
+    sp out, a in
+    alu op dec, alu out, sp in
+    reset counter
+
+0664 push bp:
+    sp out, mar in
+    bp out, ram in
+    sp out, a in
+    alu op dec, alu out, sp in
+    reset counter
+
+0665 push sp:
+    sp out, mar in
+    sp out, ram in
+    sp out, a in
+    alu op dec, alu out, sp in
+    reset counter
+
+0666 push add:
+    pc out, mar in
+    pc inc
+    ram out, mar in
+    ram out, a in, b in
+    sp out, mar in
+    alu op or, alu out, ram in
+    sp out, a in
+    alu op dec, alu out, sp in
+    reset counter
+
+0667 push num:
+    pc out, mar in
+    pc inc
+    ram out, a in, b in
+    sp out, mar in
+    alu op or, alu out, ram in
+    sp out, a in
+    alu op dec, alu out, sp in
+    reset counter
+
+0668 call lbl:
+    sp out, mar in, pc inc
+    pc out, ram in
+    sp out, a in
+    alu op dec, alu out, sp in
+    pc out, mar in
+    ram out, pc set
+    ram out
+    reset counter
+
+0669 enter:
+    sp out, mar in
+    bp out, ram in
+    sp out, a in
+    alu op dec, alu out, sp in
+    sp out, bp in
+    reset counter
+
+0770 pop ax:
+    sp out, a in
+    alu op inc, alu out, sp in
+    sp out, mar in
+    ram out, ax in
+    reset counter
+
+0771 pop bx:
+    sp out, a in
+    alu op inc, alu out, sp in
+    sp out, mar in
+    ram out, bx in
+    reset counter
+
+0772 pop cx:
+    sp out, a in
+    alu op inc, alu out, sp in
+    sp out, mar in
+    ram out, cx in
+    reset counter
+
+0773 pop dx:
+    sp out, a in
+    alu op inc, alu out, sp in
+    sp out, mar in
+    ram out, dx in
+    reset counter
+
+0774 pop bp:
+    sp out, a in
+    alu op inc, alu out, sp in
+    sp out, mar in
+    ram out, bp in
+    reset counter
+
+0775 pop sp:
+    sp out, a in
+    alu op inc, alu out, sp in
+    sp out, mar in
+    ram out, sp in
+    reset counter
+
+0776 pop add:
+    pc out, mar in
+    pc inc
+    ram out, mar in
+    ram out, a in, b in
+    sp out, mar in
+    alu op or, alu out, ram in
+    sp out, a in
+    alu op dec, alu out, sp in
+    reset counter
+
+0778 ret:
+    sp out, a in
+    alu op inc, alu out, sp in
+    sp out, mar in
+    ram out, pc set
+    ram out
+    reset counter
+
+0779 leave:
+    bp out, sp in
+    sp out, a in
+    alu op inc, alu out, sp in
+    sp out, mar in
+    ram out, bp in
     reset counter
 
