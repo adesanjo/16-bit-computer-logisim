@@ -34,6 +34,10 @@ for i,line in enumerate(code):
             words+=1
         if line[1] not in regs and line[2] not in regs:
             words+=1
+    elif line[0] in ("inc","dec"):
+        words+=1
+        if line[1] not in regs:
+            words+=1
     elif line[0] in ("out","halt","nop"):
         words+=1
     elif line[0] in jumps:

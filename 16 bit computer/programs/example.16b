@@ -8,7 +8,7 @@ cmp -count -var
 jng :end
 
 mul ax -count
-sub -count 1
+dec -count
 
 jmp :loop
 :end
