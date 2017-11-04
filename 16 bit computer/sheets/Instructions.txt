@@ -4401,8 +4401,8 @@ ffff halt:
     reset counter
 
 1061 cmp bx num:
-    pc out, mar in, pc inc
-    bx out, a in
+    pc out, mar in
+    bx out, a in, pc inc
     ram out, b in
     reset counter
 
@@ -4493,68 +4493,79 @@ ffff halt:
     reset counter
 
 1080 jmp lbl:
-    pc out, mar in, pc inc
-    nop
+    pc out, mar in
+    pc inc
     ram out, pc set
+    ram out
     reset counter
 
 1081 ja lbl:
-    pc out, mar in, pc inc
-    nop
+    pc out, mar in
+    pc inc
     ram out, ja
+    ram out
     reset counter
 
 1082 jna lbl:
-    pc out, mar in, pc inc
-    nop
+    pc out, mar in
+    pc inc
     ram out, jna
+    ram out
     reset counter
 
 1083 je lbl:
-    pc out, mar in, pc inc
-    nop
+    pc out, mar in
+    pc inc
     ram out, je
+    ram out
     reset counter
 
 1084 jne lbl:
-    pc out, mar in, pc inc
-    nop
+    pc out, mar in
+    pc inc
     ram out, jne
+    ram out
     reset counter
 
 1085 jb lbl:
-    pc out, mar in, pc inc
-    nop
+    pc out, mar in
+    pc inc
     ram out, jb
+    ram out
     reset counter
 
 1086 jnb lbl:
-    pc out, mar in, pc inc
-    nop
+    pc out, mar in
+    pc inc
     ram out, jnb
+    ram out
     reset counter
 
 1087 jg lbl:
-    pc out, mar in, pc inc
-    nop
+    pc out, mar in
+    pc inc
     ram out, jg
+    ram out
     reset counter
 
 1088 jng lbl:
-    pc out, mar in, pc inc
-    nop
+    pc out, mar in
+    pc inc
     ram out, jng
+    ram out
     reset counter
 
 1089 jl lbl:
-    pc out, mar in, pc inc
-    nop
+    pc out, mar in
+    pc inc
     ram out, jl
+    ram out
     reset counter
 
 108a jnl lbl:
-    pc out, mar in, pc inc
-    nop
+    pc out, mar in
+    pc inc
     ram out, jnl
+    ram out
     reset counter
 
