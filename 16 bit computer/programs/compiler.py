@@ -8,11 +8,14 @@ file=open(sys.argv[1])
 code=file.read()
 file.close()
 
+def hexadec(n):
+    return hex(n if n>=0 else 2**16+n)
+
 regs=("ax","bx","cx","dx","bp","sp")
 regnums={"ax":"0","bx":"1","cx":"2","dx":"3","bp":"4","sp":"5"}
 jumps=["jmp","ja","jna","je","jne","jb","jnb","jg","jng","jl","jnl"]
 
-# variables are defined by a -
+# variables are defined by a *
 var={}
 # labels are difined by a :
 labels={}
@@ -24,10 +27,10 @@ wordsList=[0]
 
 for i,line in enumerate(code):
     words=0
-    if line[0][0]=="-":
+    if line[0][0]=="*":
         var[line[0]]=i
     elif line[0][0]==":":
-        labels[line[0]]=hex(wordsList[-1])[2:]
+        labels[line[0]]=hexadec(wordsList[-1])[2:]
     elif line[0] in ("mov","add","sub","mul","div","cmp"):
         words+=1
         if line[1] not in regs or line[2] not in regs:
@@ -49,11 +52,11 @@ compiledVar=[]
 words=wordsList[-1]
 
 for i,v in enumerate(var.keys()):
-    compiledVar.append(hex(int(code[var[v]][1],0))[2:])
-    var[v]=hex(words+i)
+    compiledVar.append(hexadec(int(code[var[v]][1],0))[2:])
+    var[v]=hexadec(words+i)
 
 for line in code:
-    if line[0][0] in("-",":"):
+    if line[0][0] in("*",":"):
         continue
     if line[0]=="nop":
         compiledCode.append("0")
@@ -91,7 +94,7 @@ for line in code:
                 compiledCode.append("0c"+regnums[line[1]]+regnums[line[2][1:-1]])
             elif line[0]=="div":
                 compiledCode.append("0f"+regnums[line[1]]+regnums[line[2][1:-1]])
-        elif line[1] in regs and line[2] not in regs and line[2][0] not in ("[","-"):
+        elif line[1] in regs and line[2] not in regs and line[2][0] not in ("[","*"):
             if line[0]=="mov":
                 compiledCode.append("001"+regnums[line[1]])
             elif line[0]=="add":
@@ -102,8 +105,8 @@ for line in code:
                 compiledCode.append("00a"+regnums[line[1]])
             elif line[0]=="div":
                 compiledCode.append("00d"+regnums[line[1]])
-            compiledCode.append(hex(int(line[2],0))[2:])
-        elif line[1] in regs and line[2][0] in ("[","-"):
+            compiledCode.append(hexadec(int(line[2],0))[2:])
+        elif line[1] in regs and line[2][0] in ("[","*"):
             if line[0]=="mov":
                 compiledCode.append("002"+regnums[line[1]])
             elif line[0]=="add":
@@ -114,8 +117,8 @@ for line in code:
                 compiledCode.append("00b"+regnums[line[1]])
             elif line[0]=="div":
                 compiledCode.append("00e"+regnums[line[1]])
-            compiledCode.append(hex(int(line[2][1:-1] if line[2][0]=="[" else var[line[2]],0))[2:])
-        elif line[2] in regs and line[1][0] in ("[","-"):
+            compiledCode.append(hexadec(int(line[2][1:-1] if line[2][0]=="[" else var[line[2]],0))[2:])
+        elif line[2] in regs and line[1][0] in ("[","*"):
             if line[0]=="mov":
                 compiledCode.append("003"+regnums[line[2]])
             elif line[0]=="add":
@@ -126,8 +129,8 @@ for line in code:
                 compiledCode.append("00c"+regnums[line[2]])
             elif line[0]=="div":
                 compiledCode.append("00f"+regnums[line[1]])
-            compiledCode.append(hex(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
-        elif line[1][0] in ("[","-") and line[2] not in regs and line[2][0] not in ("[","-"):
+            compiledCode.append(hexadec(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
+        elif line[1][0] in ("[","*") and line[2] not in regs and line[2][0] not in ("[","*"):
             if line[0]=="mov":
                 compiledCode.append("0016")
             elif line[0]=="add":
@@ -138,9 +141,9 @@ for line in code:
                 compiledCode.append("00a6")
             elif line[0]=="div":
                 compiledCode.append("00d6")
-            compiledCode.append(hex(int(line[2],0))[2:])
-            compiledCode.append(hex(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
-        elif line[1][0] in ("[","-") and line[2][0] in ("[","-"):
+            compiledCode.append(hexadec(int(line[2],0))[2:])
+            compiledCode.append(hexadec(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
+        elif line[1][0] in ("[","*") and line[2][0] in ("[","*"):
             if line[0]=="mov":
                 compiledCode.append("0018")
             elif line[0]=="add":
@@ -151,44 +154,44 @@ for line in code:
                 compiledCode.append("00a8")
             elif line[0]=="div":
                 compiledCode.append("00d8")
-            compiledCode.append(hex(int(line[2][1:-1] if line[2][0]=="[" else var[line[2]],0))[2:])
-            compiledCode.append(hex(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
+            compiledCode.append(hexadec(int(line[2][1:-1] if line[2][0]=="[" else var[line[2]],0))[2:])
+            compiledCode.append(hexadec(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
     elif line[0] in ("inc","dec"):
         if line[1] in regs:
             compiledCode.append(("046" if line[0]=="inc" else "076")+regnums[line[1]])
-        elif line[1][0] in ("[","-"):
+        elif line[1][0] in ("[","*"):
             compiledCode.append("0047" if line[0]=="inc" else "0077")
-            compiledCode.append(hex(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
+            compiledCode.append(hexadec(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
     elif line[0]=="out":
         if line[1] in regs:
             compiledCode.append(("fff")+regnums[line[1]])
-        elif line[1][0] in ("[","-"):
+        elif line[1][0] in ("[","*"):
             compiledCode.append("fff6")
-            compiledCode.append(hex(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
-        elif  line[1] not in regs and line[1][0] not in ("[","-"):
+            compiledCode.append(hexadec(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
+        elif  line[1] not in regs and line[1][0] not in ("[","*"):
             compiledCode.append("fff7")
-            compiledCode.append(hex(int(line[1],0))[2:])
+            compiledCode.append(hexadec(int(line[1],0))[2:])
     elif line[0]=="halt":
         compiledCode.append("ffff")
     elif line[0]=="cmp":
         if line[1] in regs and line[2] in regs:
             compiledCode.append("10"+regnums[line[1]]+regnums[line[2]])
-        elif line[1] in regs and line[2] not in regs and line[2][0] not in ("[","-"):
+        elif line[1] in regs and line[2] not in regs and line[2][0] not in ("[","*"):
             compiledCode.append("106"+regnums[line[1]])
-            compiledCode.append(hex(int(line[2],0))[2:])
-        elif line[1] in regs and line[2][0] in ("[","-"):
+            compiledCode.append(hexadec(int(line[2],0))[2:])
+        elif line[1] in regs and line[2][0] in ("[","*"):
             compiledCode.append("107"+regnums[line[1]])
-            compiledCode.append(hex(int(line[2][1:-1] if line[2][0]=="[" else var[line[2]],0))[2:])
-        elif line[1][0] in ("[","-") and line[2] not in regs and line[2][0] not in ("[","-"):
+            compiledCode.append(hexadec(int(line[2][1:-1] if line[2][0]=="[" else var[line[2]],0))[2:])
+        elif line[1][0] in ("[","*") and line[2] not in regs and line[2][0] not in ("[","*"):
             compiledCode.append("1076")
-            compiledCode.append(hex(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
-            compiledCode.append(hex(int(line[2],0))[2:])
-        elif line[1][0] in ("[","-") and line[2][0] in ("[","-"):
+            compiledCode.append(hexadec(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
+            compiledCode.append(hexadec(int(line[2],0))[2:])
+        elif line[1][0] in ("[","*") and line[2][0] in ("[","*"):
             compiledCode.append("1077")
-            compiledCode.append(hex(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
-            compiledCode.append(hex(int(line[2][1:-1] if line[2][0]=="[" else var[line[2]],0))[2:])
+            compiledCode.append(hexadec(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
+            compiledCode.append(hexadec(int(line[2][1:-1] if line[2][0]=="[" else var[line[2]],0))[2:])
     elif line[0] in jumps:
-        compiledCode.append("108"+hex(jumps.index(line[0]))[2:])
+        compiledCode.append("108"+hexadec(jumps.index(line[0]))[2:])
         compiledCode.append(labels[line[1]])
 
 file=open(sys.argv[1].replace(".16b",".c16b"),"w")
