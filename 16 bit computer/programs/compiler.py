@@ -26,7 +26,7 @@ labels={}
 code=code.splitlines()
 code=[line.strip().split() for line in code if len(line.strip())>0 and line.strip()[0]!="#"]
 
-wordsList=[4]
+wordsList=[0]
 
 for i,line in enumerate(code):
     words=0
@@ -50,7 +50,7 @@ for i,line in enumerate(code):
         words+=2
     wordsList.append(wordsList[-1]+words)
 
-compiledCode=["0014","ffff","0015","ffff"]
+compiledCode=[]
 compiledVar=[]
 words=wordsList[-1]
 
