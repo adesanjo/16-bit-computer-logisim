@@ -88,6 +88,8 @@ ffff        halt                          Halts execution. Execution can be resu
 1088        jng lbl          lbl          Jumps to label lbl if a <= b (signed)
 1089        jl lbl           lbl          Jumps to label lbl if a < b (signed)
 108a        jnl lbl          lbl          Jumps to label lbl if a >= b (signed)
+108b        jz lbl           lbl          Jumps to label lbl if a == 0
+108c        jnz lbl          lbl          Jumps to label lbl if a != 0
 
 066x        push reg         None
 0666        push add         add
@@ -4857,6 +4859,24 @@ ffff halt:
     pc out, mar in
     pc inc
     ram out, jnl
+    ram out
+    reset counter
+
+108b jz lbl:
+    alu op not, alu out, b in
+    alu op and, alu out, b in
+    pc out, mar in
+    pc inc
+    ram out, je
+    ram out
+    reset counter
+
+108c jnz lbl:
+    alu op not, alu out, b in
+    alu op and, alu out, b in
+    pc out, mar in
+    pc inc
+    ram out, jne
     ram out
     reset counter
 

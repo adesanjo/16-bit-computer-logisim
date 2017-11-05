@@ -13,7 +13,8 @@ def hexadec(n):
 
 regs=("ax","bx","cx","dx","bp","sp")
 regnums={"ax":"0","bx":"1","cx":"2","dx":"3","bp":"4","sp":"5"}
-jumps=["jmp","ja","jna","je","jne","jb","jnb","jg","jng","jl","jnl"]
+jumps={"jmp":0,"ja":1,"jnbe":1,"jna":2,"jbe":2,"je":3,"jne":4,"jb":5,"jnae":5,"jnb":6,
+"jae":6,"jg":7,"jnle":7,"jng":8,"jle":8,"jl":9,"jnge":9,"jnl":10,"jge":10,"jz":11,"jnz":12}
 
 # variables are defined by a *
 var={}
@@ -28,7 +29,7 @@ wordsList=[4]
 for i,line in enumerate(code):
     words=0
     if line[0][0]=="*":
-        var[line[0]]=i
+        var[line[0]]=(i,len(line)-1)
     elif line[0][0]==":":
         labels[line[0]]=hexadec(wordsList[-1])[2:]
     elif line[0] in ("mov","add","sub","mul","div","cmp","shl","shr","sar","rol","ror","and","or","xor"):
@@ -43,7 +44,7 @@ for i,line in enumerate(code):
             words+=1
     elif line[0] in ("halt","nop","enter","leave","ret"):
         words+=1
-    elif line[0] in jumps+["call"]:
+    elif line[0] in jumps or line[0]=="call":
         words+=2
     wordsList.append(wordsList[-1]+words)
 
@@ -51,9 +52,13 @@ compiledCode=["0014","ffff","0015","ffff"]
 compiledVar=[]
 words=wordsList[-1]
 
-for i,v in enumerate(var.keys()):
-    compiledVar.append(hexadec(int(code[var[v]][1],0))[2:])
+i=0
+for v in var.keys():
+    vv=var[v]
+    for j in range(vv[1]):
+        compiledVar.append(hexadec(int(code[vv[0]][j+1],0))[2:])
     var[v]=hexadec(words+i)
+    i+=vv[1]
 
 for line in code:
     if line[0][0] in("*",":"):
@@ -295,7 +300,7 @@ for line in code:
             compiledCode.append(hexadec(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
             compiledCode.append(hexadec(int(line[2][1:-1] if line[2][0]=="[" else var[line[2]],0))[2:])
     elif line[0] in jumps:
-        compiledCode.append("108"+hexadec(jumps.index(line[0]))[2:])
+        compiledCode.append("108"+hexadec(jumps[line[0]])[2:])
         compiledCode.append(labels[line[1]])
     elif line[0] in ("push","pop"):
         if line[1] in regs:
