@@ -205,6 +205,22 @@ for line in code:
                 compiledCode.append("00a6")
             elif line[0]=="div":
                 compiledCode.append("00d6")
+            elif line[0]=="shl":
+                compiledCode.append("1186")
+            elif line[0]=="shr":
+                compiledCode.append("1286")
+            elif line[0]=="sar":
+                compiledCode.append("1386")
+            elif line[0]=="rol":
+                compiledCode.append("1486")
+            elif line[0]=="ror":
+                compiledCode.append("1586")
+            elif line[0]=="and":
+                compiledCode.append("1686")
+            elif line[0]=="or":
+                compiledCode.append("1786")
+            elif line[0]=="xor":
+                compiledCode.append("1886")
             compiledCode.append(hexadec(int(line[2],0))[2:])
             compiledCode.append(hexadec(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
         elif line[1][0] in ("[","*") and line[2][0] in ("[","*"):
@@ -218,7 +234,31 @@ for line in code:
                 compiledCode.append("00a8")
             elif line[0]=="div":
                 compiledCode.append("00d8")
+            elif line[0]=="shl":
+                compiledCode.append("1187")
+            elif line[0]=="shr":
+                compiledCode.append("1287")
+            elif line[0]=="sar":
+                compiledCode.append("1387")
+            elif line[0]=="rol":
+                compiledCode.append("1487")
+            elif line[0]=="ror":
+                compiledCode.append("1587")
+            elif line[0]=="and":
+                compiledCode.append("1687")
+            elif line[0]=="or":
+                compiledCode.append("1787")
+            elif line[0]=="xor":
+                compiledCode.append("1887")
             compiledCode.append(hexadec(int(line[2][1:-1] if line[2][0]=="[" else var[line[2]],0))[2:])
+            compiledCode.append(hexadec(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
+    elif line[0] in ("not","neg"):
+        if line[1] in regs:
+            compiledCode.append(("196" if line[0]=="not" else "1a6")+regnums[line[1]])
+        elif line[1][0] in ("[","*") and line[1][1:-1] in regs:
+            compiledCode.append(("197" if line[0]=="not" else "1a7")+regnums[line[1][1:-1]])
+        elif line[1][0] in ("[","*"):
+            compiledCode.append("1976" if line[0]=="not" else "1a76")
             compiledCode.append(hexadec(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
     elif line[0] in ("inc","dec"):
         if line[1] in regs:
