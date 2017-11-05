@@ -31,15 +31,15 @@ for i,line in enumerate(code):
         var[line[0]]=i
     elif line[0][0]==":":
         labels[line[0]]=hexadec(wordsList[-1])[2:]
-    elif line[0] in ("mov","add","sub","mul","div","cmp"):
+    elif line[0] in ("mov","add","sub","mul","div","cmp","shl","shr","sar","rol","ror","and","or","xor"):
         words+=1
         if (line[1] not in regs and line[1][1:-1] not in regs) or (line[2] not in regs and line[2][1:-1] not in regs):
             words+=1
         if (line[1] not in regs and line[1][1:-1] not in regs) and (line[2] not in regs and line[2][1:-1] not in regs):
             words+=1
-    elif line[0] in ("out","inc","dec","push","pop"):
+    elif line[0] in ("out","inc","dec","push","pop","not","neg"):
         words+=1
-        if line[1] not in regs:
+        if line[1] not in regs and line[1][1:-1] not in regs:
             words+=1
     elif line[0] in ("halt","nop","enter","leave","ret"):
         words+=1
@@ -60,7 +60,7 @@ for line in code:
         continue
     if line[0]=="nop":
         compiledCode.append("0")
-    elif line[0] in ("mov","add","sub","mul","div"):
+    elif line[0] in ("mov","add","sub","mul","div","shl","shr","sar","rol","ror","and","or","xor"):
         if line[1] in regs and line[2] in regs:
             if line[0]=="mov":
                 compiledCode.append("01"+regnums[line[1]]+regnums[line[2]])
@@ -72,6 +72,22 @@ for line in code:
                 compiledCode.append("0a"+regnums[line[1]]+regnums[line[2]])
             elif line[0]=="div":
                 compiledCode.append("0d"+regnums[line[1]]+regnums[line[2]])
+            elif line[0]=="shl":
+                compiledCode.append("11"+regnums[line[1]]+regnums[line[2]])
+            elif line[0]=="shr":
+                compiledCode.append("12"+regnums[line[1]]+regnums[line[2]])
+            elif line[0]=="sar":
+                compiledCode.append("13"+regnums[line[1]]+regnums[line[2]])
+            elif line[0]=="rol":
+                compiledCode.append("14"+regnums[line[1]]+regnums[line[2]])
+            elif line[0]=="ror":
+                compiledCode.append("15"+regnums[line[1]]+regnums[line[2]])
+            elif line[0]=="and":
+                compiledCode.append("16"+regnums[line[1]]+regnums[line[2]])
+            elif line[0]=="or":
+                compiledCode.append("17"+regnums[line[1]]+regnums[line[2]])
+            elif line[0]=="xor":
+                compiledCode.append("18"+regnums[line[1]]+regnums[line[2]])
         elif line[1] in regs and line[2][0]=="[" and line[2][1:-1] in regs:
             if line[0]=="mov":
                 compiledCode.append("02"+regnums[line[1]]+regnums[line[2][1:-1]])
@@ -105,6 +121,22 @@ for line in code:
                 compiledCode.append("00a"+regnums[line[1]])
             elif line[0]=="div":
                 compiledCode.append("00d"+regnums[line[1]])
+            elif line[0]=="shl":
+                compiledCode.append("116"+regnums[line[1]])
+            elif line[0]=="shr":
+                compiledCode.append("126"+regnums[line[1]])
+            elif line[0]=="sar":
+                compiledCode.append("136"+regnums[line[1]])
+            elif line[0]=="rol":
+                compiledCode.append("146"+regnums[line[1]])
+            elif line[0]=="ror":
+                compiledCode.append("156"+regnums[line[1]])
+            elif line[0]=="and":
+                compiledCode.append("166"+regnums[line[1]])
+            elif line[0]=="or":
+                compiledCode.append("176"+regnums[line[1]])
+            elif line[0]=="xor":
+                compiledCode.append("186"+regnums[line[1]])
             compiledCode.append(hexadec(int(line[2],0))[2:])
         elif line[1] in regs and line[2][0] in ("[","*"):
             if line[0]=="mov":
@@ -117,6 +149,22 @@ for line in code:
                 compiledCode.append("00b"+regnums[line[1]])
             elif line[0]=="div":
                 compiledCode.append("00e"+regnums[line[1]])
+            elif line[0]=="shl":
+                compiledCode.append("117"+regnums[line[1]])
+            elif line[0]=="shr":
+                compiledCode.append("127"+regnums[line[1]])
+            elif line[0]=="sar":
+                compiledCode.append("137"+regnums[line[1]])
+            elif line[0]=="rol":
+                compiledCode.append("147"+regnums[line[1]])
+            elif line[0]=="ror":
+                compiledCode.append("157"+regnums[line[1]])
+            elif line[0]=="and":
+                compiledCode.append("167"+regnums[line[1]])
+            elif line[0]=="or":
+                compiledCode.append("177"+regnums[line[1]])
+            elif line[0]=="xor":
+                compiledCode.append("187"+regnums[line[1]])
             compiledCode.append(hexadec(int(line[2][1:-1] if line[2][0]=="[" else var[line[2]],0))[2:])
         elif line[2] in regs and line[1][0] in ("[","*"):
             if line[0]=="mov":
@@ -129,6 +177,22 @@ for line in code:
                 compiledCode.append("00c"+regnums[line[2]])
             elif line[0]=="div":
                 compiledCode.append("00f"+regnums[line[1]])
+            elif line[0]=="shl":
+                compiledCode.append("118"+regnums[line[1]])
+            elif line[0]=="shr":
+                compiledCode.append("128"+regnums[line[1]])
+            elif line[0]=="sar":
+                compiledCode.append("138"+regnums[line[1]])
+            elif line[0]=="rol":
+                compiledCode.append("148"+regnums[line[1]])
+            elif line[0]=="ror":
+                compiledCode.append("158"+regnums[line[1]])
+            elif line[0]=="and":
+                compiledCode.append("168"+regnums[line[1]])
+            elif line[0]=="or":
+                compiledCode.append("178"+regnums[line[1]])
+            elif line[0]=="xor":
+                compiledCode.append("188"+regnums[line[1]])
             compiledCode.append(hexadec(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
         elif line[1][0] in ("[","*") and line[2] not in regs and line[2][0] not in ("[","*"):
             if line[0]=="mov":

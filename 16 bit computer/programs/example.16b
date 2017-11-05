@@ -22,10 +22,10 @@ mul ax bx
 leave
 ret
 
+*num 8
+
 :main
 push *num
 call :fact
 inc sp
 out ax
-
-*num 8
