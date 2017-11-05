@@ -5,6 +5,7 @@ Opcodes  |  Instructions  |  Operands  |  Description
 0000        nop              None         Does nothing
 
 fffx        out reg                       Outputs value of specified register and halts. Execution can be resumed by pressing the reset counter button
+ffex        out regadd                    Outputs value at address specified by register and halts. Execution can be resumed by pressing the reset counter button
 fff6        out add                       Outputs value at specified address and halts. Execution can be resumed by pressing the reset counter button
 fff7        out num                       Outputs value of specified number and halts. Execution can be resumed by pressing the reset counter button
 
@@ -259,6 +260,36 @@ fff4 out bp:
 
 fff5 out sp:
     sp out, halt
+
+ffe0 out [ax]:
+    ax out, mar in
+    ram out, mar in
+    ram out, halt
+
+ffe1 out [bx]:
+    bx out, mar in
+    ram out, mar in
+    ram out, halt
+
+ffe2 out [cx]:
+    cx out, mar in
+    ram out, mar in
+    ram out, halt
+
+ffe3 out [dx]:
+    dx out, mar in
+    ram out, mar in
+    ram out, halt
+
+ffe4 out [bp]:
+    bp out, mar in
+    ram out, mar in
+    ram out, halt
+
+ffe5 out [sp]:
+    sp out, mar in
+    ram out, mar in
+    ram out, halt
 
 fff6 out add:
     pc out, mar in

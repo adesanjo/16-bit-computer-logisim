@@ -276,6 +276,8 @@ for line in code:
     elif line[0]=="out":
         if line[1] in regs:
             compiledCode.append(("fff")+regnums[line[1]])
+        elif line[1][0]=="[" and line[1][1:-1] in regs:
+            compiledCode.append(("ffe")+regnums[line[1][1:-1]])
         elif line[1][0] in ("[","*"):
             compiledCode.append("fff6")
             compiledCode.append(hexadec(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
