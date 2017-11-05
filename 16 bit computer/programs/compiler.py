@@ -9,8 +9,8 @@ code=file.read()
 file.close()
 
 def hexadec(n):
-    if n>=2**15 or n<-2**15:
-        raise Exception(str(n)+"is not a valid number")
+    if n>=2**16 or n<-2**15:
+        raise Exception(str(n)+" is not a valid number")
     return hex(n if n>=0 else 2**16+n)
 
 regs=("ax","bx","cx","dx","bp","sp")
