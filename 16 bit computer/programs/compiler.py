@@ -9,6 +9,8 @@ code=file.read()
 file.close()
 
 def hexadec(n):
+    if n>=2**15 or n<-2**15:
+        raise Exception(str(n)+"is not a valid number")
     return hex(n if n>=0 else 2**16+n)
 
 regs=("ax","bx","cx","dx","bp","sp")
@@ -115,7 +117,7 @@ for line in code:
                 compiledCode.append("0c"+regnums[line[1][1:-1]]+regnums[line[2]])
             elif line[0]=="div":
                 compiledCode.append("0f"+regnums[line[1][1:-1]]+regnums[line[2]])
-        elif line[1] in regs and line[2] not in regs and line[2][0] not in ("[","*"):
+        elif line[1] in regs and line[2] not in regs and (line[2][0] not in ("[","*") or line[2][:2]=="**"):
             if line[0]=="mov":
                 compiledCode.append("001"+regnums[line[1]])
             elif line[0]=="add":
@@ -142,7 +144,7 @@ for line in code:
                 compiledCode.append("176"+regnums[line[1]])
             elif line[0]=="xor":
                 compiledCode.append("186"+regnums[line[1]])
-            compiledCode.append(hexadec(int(line[2],0))[2:])
+            compiledCode.append(hexadec(int(var[line[2][1:]] if line[2][:2]=="**" else line[2],0))[2:])
         elif line[1] in regs and line[2][0] in ("[","*"):
             if line[0]=="mov":
                 compiledCode.append("002"+regnums[line[1]])
@@ -199,7 +201,7 @@ for line in code:
             elif line[0]=="xor":
                 compiledCode.append("188"+regnums[line[1]])
             compiledCode.append(hexadec(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
-        elif line[1][0] in ("[","*") and line[2] not in regs and line[2][0] not in ("[","*"):
+        elif line[1][0] in ("[","*") and line[2] not in regs and (line[2][0] not in ("[","*") or line[2][:2]=="**"):
             if line[0]=="mov":
                 compiledCode.append("0016")
             elif line[0]=="add":
@@ -226,7 +228,7 @@ for line in code:
                 compiledCode.append("1786")
             elif line[0]=="xor":
                 compiledCode.append("1886")
-            compiledCode.append(hexadec(int(line[2],0))[2:])
+            compiledCode.append(hexadec(int(var[line[2][1:]] if line[2][:2]=="**" else line[2],0))[2:])
             compiledCode.append(hexadec(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
         elif line[1][0] in ("[","*") and line[2][0] in ("[","*"):
             if line[0]=="mov":
@@ -285,16 +287,16 @@ for line in code:
     elif line[0]=="cmp":
         if line[1] in regs and line[2] in regs:
             compiledCode.append("10"+regnums[line[1]]+regnums[line[2]])
-        elif line[1] in regs and line[2] not in regs and line[2][0] not in ("[","*"):
+        elif line[1] in regs and line[2] not in regs and (line[2][0] not in ("[","*") or line[2][:2]=="**"):
             compiledCode.append("106"+regnums[line[1]])
-            compiledCode.append(hexadec(int(line[2],0))[2:])
+            compiledCode.append(hexadec(int(var[line[2][1:]] if line[2][:2]=="**" else line[2],0))[2:])
         elif line[1] in regs and line[2][0] in ("[","*"):
             compiledCode.append("107"+regnums[line[1]])
             compiledCode.append(hexadec(int(line[2][1:-1] if line[2][0]=="[" else var[line[2]],0))[2:])
-        elif line[1][0] in ("[","*") and line[2] not in regs and line[2][0] not in ("[","*"):
+        elif line[1][0] in ("[","*") and line[2] not in regs and (line[2][0] not in ("[","*") or line[2][:2]=="**"):
             compiledCode.append("1076")
             compiledCode.append(hexadec(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
-            compiledCode.append(hexadec(int(line[2],0))[2:])
+            compiledCode.append(hexadec(int(var[line[2][1:]] if line[2][:2]=="**" else line[2],0))[2:])
         elif line[1][0] in ("[","*") and line[2][0] in ("[","*"):
             compiledCode.append("1077")
             compiledCode.append(hexadec(int(line[1][1:-1] if line[1][0]=="[" else var[line[1]],0))[2:])
